@@ -71,4 +71,10 @@ class AdminCategoryController extends Controller
     {
         //
     }
+
+    public function get()
+    {
+        return ['data' => Category::select('name','slug')->get()];
+    }
+
 }

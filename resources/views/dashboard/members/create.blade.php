@@ -1,11 +1,6 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/assets/app.css" rel="stylesheet">
-
 <div class="row my-3">
     <div class="col-lg-12">
         <a type="button" href="{{ url()->previous() }}" class="btn btn-link mb-3" style="text-decoration: none;"><i data-feather="arrow-left" style="width: 20px; height: 20px;"></i>Back</a>
@@ -267,14 +262,7 @@
                             <div class="card-body p-2">
                                 <label for="gender" class="form-label"><h6>Gender</h6></label>
                                 <div class="d-flex">
-                                    <div class="select-gender col-md-10">
-                                        <select class="form-select" name="gender">
-                                            <option value="" selected>--- Choose Gender ---</option>
-                                            @foreach ($genders as $gender)
-                                            <option value="{{ $gender->title }}">{{ $gender->title }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    <input id="selectGender" class="form-control select-input" data-input="{{ $genders->pluck('title')->implode(',') }}" name='gender' placeholder="--- Choose gender ---" />
                                     <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#genderModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
@@ -294,14 +282,7 @@
                             <div class="card-body p-2">
                                 <label for="bloodtype" class="form-label"><h6>Blood Type</h6></label>
                                 <div class="d-flex">
-                                    <div class="select-bloodtype col-md-10">
-                                        <select class="form-select" name="blood_type">
-                                            <option value="" selected>--- Choose Blood Type ---</option>
-                                            @foreach ($bloodtypes as $bloodtype)
-                                            <option value="{{ $bloodtype->title }}">{{ $bloodtype->title }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    <input id="selectBloodType" class="form-control select-input" data-input="{{ $bloodtypes->pluck('title')->implode(',') }}" name='blood_type' placeholder="--- Choose blood type ---" />
                                     <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#bloodtypeModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
@@ -316,14 +297,7 @@
                             <div class="card-body p-2">
                                 <label for="citizenship" class="form-label"><h6>Citizenship</h6></label>
                                 <div class="d-flex">
-                                    <div class="select-citizenship col-md-10">
-                                        <select class="form-select" name="citizenship">
-                                            <option value="" selected>--- Choose Citizenship ---</option>
-                                            @foreach ($citizenships as $citizenship)
-                                            <option value="{{ $citizenship->title }}">{{ $citizenship->title }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    <input id="selectCitizenship" class="form-control select-input" data-input="{{ $citizenships->pluck('title')->implode(',') }}" name='citizenship' placeholder="--- Choose citizenship ---" />
                                     <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#citizenshipModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
@@ -373,14 +347,7 @@
                             <div class="card-body p-2">
                                 <label for="education" class="form-label"><h6>Education</h6></label>
                                 <div class="d-flex">
-                                    <div class="select-education col-md-10">
-                                        <select class="form-select" name="education">
-                                            <option value="" selected>--- Choose Education ---</option>
-                                            @foreach ($educations as $education)
-                                            <option value="{{ $education->title }}">{{ $education->title }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    <input id="selectEducation" class="form-control select-input" data-input="{{ $educations->pluck('title')->implode(',') }}" name='education' placeholder="--- Choose education ---" />
                                     <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#educationModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
@@ -396,14 +363,7 @@
                             <div class="card-body p-2">
                                 <label for="profession" class="form-label"><h6>Profession</h6></label>
                                 <div class="d-flex">
-                                    <div class="select-profession col-md-10">
-                                        <select class="form-select" name="profession">
-                                            <option value="" selected>--- Choose Profession ---</option>
-                                            @foreach ($professions as $profession)
-                                            <option value="{{ $profession->title }}">{{ $profession->title }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    <input id="selectProfession" class="form-control select-input" data-input="{{ $professions->pluck('title')->implode(',') }}" name='profession' placeholder="--- Choose profession ---" />
                                     <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#professionModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
@@ -445,14 +405,7 @@
                             <div class="card-body p-2">
                                 <label for="fam_relation" class="form-label"><h6>Family Relation</h6><br></label>
                                 <div class="d-flex">
-                                    <div class="select-famrelation col-md-10">
-                                        <select class="form-select" name="fam_relation">
-                                            <option value="" selected>--- Choose Family Relation ---</option>
-                                            @foreach ($famrelations as $famrelation)
-                                            <option value="{{ $famrelation->title }}">{{ $famrelation->title }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    <input id="selectFamilyRelation" class="form-control select-input" data-input="{{ $famrelations->pluck('title')->implode(',') }}" name='fam_relation' placeholder="--- Choose family relation ---" />
                                     <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#famrelationModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
@@ -511,7 +464,7 @@
                             <div class="card-body p-2">
                                 <label for="ministry" class="form-label"><h6>Ministry</h6></label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control tags-input" id="Ministry" name="ministries" data-input="ministries" data-role="tagsinput" placeholder="Type and select one or more ministries.">
+                                    <input name="ministries" id="Ministry" class="form-control tags-input" data-input="DEACON,PASTOR,TEACHER,EVANGELIST" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
                                     <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#ministryModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
@@ -531,7 +484,7 @@
                             <div class="card-body p-2">
                                 <label for="spritual_gifts" class="form-label"><h6>Spiritual Gifts</h6></label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control tags-input" id="SpiritualGift" name="spiritual_gifts" data-input="spiritualgifts" data-role="tagsinput" placeholder="Type and select one or more spiritual gifts.">
+                                    <input type="text" class="form-control tags-input" id="SpiritualGift" name="spiritual_gifts"  data-input="TEACHING,PROPHECY,EXHORTATION,MERCY,GIVING,LEADERSHIP,SERVICE" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
                                     <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#spiritualgiftModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
@@ -551,7 +504,7 @@
                             <div class="card-body p-2">
                                 <label for="communities" class="form-label"><h6>Communities</h6></label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control tags-input" id="Community" name="communities" data-input="communities" data-role="tagsinput" placeholder="Type and select one or more communities.">
+                                    <input type="text" class="form-control tags-input" id="Community" name="communities"  data-input="Komsel Kamjet-Anak,Komsel Kamjet-Pemuda,Komsel Kamjet-Ortu" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
                                 </div>
                             </div>
                         </div>
@@ -571,7 +524,7 @@
                             <div class="card-body p-2">
                                 <label for="personality_types" class="form-label"><h6>Personality Types</h6></label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control tags-input" id="PersonalityType" name="personality_types" data-input="personality-types" data-role="tagsinput" placeholder="Type and select one or more personality types.">
+                                    <input type="text" class="form-control tags-input" id="PersonalityType" name="personality_types"  data-input="DOMINAN, INTIM, CERMAT, STABIL" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
                                 </div>
                             </div>
                         </div>
@@ -583,7 +536,7 @@
                             <div class="card-body p-2">
                                 <label for="skills_talents" class="form-label"><h6>Skills and Talents</h6></label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control tags-input" id="SkillTalent" name="skills_talents" data-input="skills_talents" data-role="tagsinput" placeholder="Type and select one or more skills or talents.">
+                                    <input type="text" class="form-control tags-input" id="SkillTalent" name="skills_talents"  data-input="painting,composing music,knitting,leather-working" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
                                 </div>
                             </div>
                         </div>
@@ -595,7 +548,7 @@
                             <div class="card-body p-2">
                                 <label for="hobbies" class="form-label"><h6>Hobbies and Activities</h6></label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control tags-input" id="HobbyActivity" name="hobbies_activities" data-input="hobbies_activities" data-role="tagsinput" placeholder="Type and select one or more hobbies or activities.">
+                                    <input type="text" class="form-control tags-input" id="HobbyActivity" name="hobbies_activities"  data-input="basketball,golf,running,walking" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
                                 </div>
                             </div>
                         </div>
@@ -1082,7 +1035,7 @@
     }
 
     var active_selRow = 0;
-    function initMdEvent(tableId){
+    function initMdEvent(tableId, selectId=null, selectUrl=null){
         var theTable = document.getElementById(tableId);
         const recordInputs = theTable.getElementsByClassName("input-borderless");
 
@@ -1155,6 +1108,23 @@
                     }
                 }
             });
+        }
+
+        if(selectId!=null && selectUrl!=null){
+            $('#'+selectId).load(selectUrl, function(data) {
+                elm = document.getElementById(selectId);
+                elm.setAttribute('data-input',data);
+                var selectify = new Tagify(elm, {
+                    enforceWhitelist: true,
+                    mode : "select",
+                    whitelist: elm.getAttribute("data-input").trim().split(','), // Array of values. stackoverflow.com/a/43375571/104380
+                    blacklist: [],
+                })
+                var newWhitelist = elm.getAttribute("data-input").trim().split(',');
+                selectify.settings.whitelist.length = 0;
+                selectify.settings.whitelist.push(...newWhitelist)
+            });
+
         }
     }
 
@@ -1430,10 +1400,7 @@
         $('div.table-citizenship').fadeOut();
         $('div.table-citizenship').load('/admin/table-citizenships', function() {
             $('div.table-citizenship').fadeIn();
-            initMdEvent("tableCitizenship");
-        });
-
-        $('div.select-citizenship').load('/admin/select-citizenships', function() {
+            initMdEvent("tableCitizenship", "selectCitizenship", "/admin/select-citizenships");
         });
       }
 
@@ -1441,10 +1408,7 @@
         $('div.table-bloodtype').fadeOut();
         $('div.table-bloodtype').load('/admin/table-bloodtypes', function() {
             $('div.table-bloodtype').fadeIn();
-            initMdEvent("tableBloodType");
-        });
-
-        $('div.select-bloodtype').load('/admin/select-bloodtypes', function() {
+            initMdEvent("tableBloodType", "selectBloodType", "/admin/select-bloodtypes");
         });
       }
 
@@ -1452,10 +1416,7 @@
         $('div.table-education').fadeOut();
         $('div.table-education').load('/admin/table-educations', function() {
             $('div.table-education').fadeIn();
-            initMdEvent("tableEducation");
-        });
-
-        $('div.select-education').load('/admin/select-educations', function() {
+            initMdEvent("tableEducation","selectEducation", "/admin/select-educations");
         });
       }
 
@@ -1463,10 +1424,7 @@
         $('div.table-profession').fadeOut();
         $('div.table-profession').load('/admin/table-professions', function() {
             $('div.table-profession').fadeIn();
-            initMdEvent("tableProfession");
-        });
-
-        $('div.select-profession').load('/admin/select-professions', function() {
+            initMdEvent("tableProfession", "selectProfession", "/admin/select-professions");
         });
       }
 
@@ -1474,10 +1432,7 @@
         $('div.table-famrelation').fadeOut();
         $('div.table-famrelation').load('/admin/table-famrelations', function() {
             $('div.table-famrelation').fadeIn();
-            initMdEvent("tableFamilyRelation");
-        });
-
-        $('div.select-profession').load('/admin/select-professions', function() {
+            initMdEvent("tableFamilyRelation", "selectFamilyRelation", "/admin/select-famrelations");
         });
       }
 
@@ -1485,7 +1440,7 @@
         $('div.table-gender').fadeOut();
         $('div.table-gender').load('/admin/table-genders', function() {
             $('div.table-gender').fadeIn();
-            initMdEvent("tableGender");
+            initMdEvent("tableGender", "selectGender", "/admin/select-genders");
         });
       }
 
@@ -1498,6 +1453,7 @@
 
         $('div.select-ministry').load('/admin/select-ministries', function() {
         });
+
       }
 
       function refreshTableSpritualGift() {
@@ -1537,56 +1493,119 @@
 
 </script>
 
-
 <script>
-    var substringMatcher = function(strs) {
-        return function findMatches(q, cb) {
-          var matches, substringRegex;
-          //// an array that will be populated with substring matches
-          matches = [];
+    inputElms_list = document.querySelectorAll('.tags-input');
+    var inputElms_array = [...inputElms_list];
+        inputElms_array.forEach(inputElm => {
+            var tagify = new Tagify(inputElm, {
+                enforceWhitelist: true,
+                whitelist: inputElm.value.trim().split(/\s*,\s*/) // Array of values. stackoverflow.com/a/43375571/104380
+            });
+            console.log(tagify);
 
-          // regex used to determine if a string contains the substring `q`
-          substrRegex = new RegExp(q, 'i');
-          // iterate through the pool of strings and for any string that
-          // contains the substring `q`, add it to the `matches` array
-          $.each(strs, function(i, str) {
-            if (substrRegex.test(str)) {
-              matches.push(str);
+// Chainable event listeners
+            tagify.on('add', onAddTag)
+                .on('remove', onRemoveTag)
+                .on('input', onInput)
+                .on('edit', onTagEdit)
+                .on('invalid', onInvalidTag)
+                .on('click', onTagClick)
+                .on('focus', onTagifyFocusBlur)
+                .on('blur', onTagifyFocusBlur)
+                .on('dropdown:hide dropdown:show', e => console.log(e.type))
+                .on('dropdown:select', onDropdownSelect)
+
+            var mockAjax = (function mockAjax(){
+                var timeout;
+                return function(duration){
+                    clearTimeout(timeout); // abort last request
+                    return new Promise(function(resolve, reject){
+                        timeout = setTimeout(resolve, duration || 100, inputElm.getAttribute("data-input").trim().split(','))
+                    })
+                }
+            })()
+
+            function onAddTag(e){
+                console.log("onAddTag: ", e.detail);
+                console.log("original input value: ", inputElm.value)
+                tagify.off('add', onAddTag) // exmaple of removing a custom Tagify event
             }
-          });
 
-          cb(matches);
-          $('#Ministry').tagsinput('focus');
-        };
-      };
+            // tag remvoed callback
+            function onRemoveTag(e){
+                console.log("onRemoveTag:", e.detail, "tagify instance value:", tagify.value)
+            }
 
-      var ministryItems = [
-        'Pastor',
-        'Apostle',
-        'Prophet',
-        'Teacher',
-        'Evangelist',
-      ];
+            // on character(s) added/removed (user is typing/deleting)
+            function onInput(e){
+                console.log("onInput: ", e.detail);
+                tagify.whitelist = null; // reset current whitelist
+                tagify.loading(true) // show the loader animation
 
-      $("#Ministry").tagsinput({
-          itemText: function(item) {
-          return item.split(" ", 1);
-        },
-        typeaheadjs: {
-            name: 'tags',
-            limit: 10,
-            source: substringMatcher(ministryItems)
-        },
-        freeInput: false,
-      });
+                // get new whitelist from a delayed mocked request (Promise)
+                mockAjax()
+                    .then(function(result){
+                        tagify.settings.whitelist = result.concat(tagify.value) // add already-existing tags to the new whitelist array
 
-      $(".tags-input").on('beforeItemAdd', function(event) {
-        if (event.item.split(" ", 1) == "") event.cancel = true;
-      });
+                        tagify
+                            .loading(false)
+                            // render the suggestions dropdown.
+                            .dropdown.show(e.detail.value);
+                    })
+                    .catch(err => tagify.dropdown.hide())
+            }
 
-      // HACK: overrule hardcoded display inline-block of typeahead.js
-      $(".twitter-typeahead").css('display', 'inline');
+            function onTagEdit(e){
+                console.log("onTagEdit: ", e.detail);
+            }
+
+            // invalid tag added callback
+            function onInvalidTag(e){
+                console.log("onInvalidTag: ", e.detail);
+            }
+
+            // invalid tag added callback
+            function onTagClick(e){
+                console.log(e.detail);
+                console.log("onTagClick: ", e.detail);
+            }
+
+            function onTagifyFocusBlur(e){
+                console.log(e.type, "event fired")
+            }
+
+            function onDropdownSelect(e){
+                console.log("onDropdownSelect: ", e.detail)
+            }
+        });
 
 </script>
+<script>
+    selectElms_list = document.querySelectorAll('.select-input');
+    var selectElms_array = [...selectElms_list];
+        selectElms_array.forEach(selectElm => {
+            var selectify = new Tagify(selectElm, {
+                enforceWhitelist: true,
+                mode : "select",
+                whitelist: selectElm.getAttribute("data-input").trim().split(','), // Array of values. stackoverflow.com/a/43375571/104380
+                blacklist: [],
+            });
+            console.log(selectify);
+
+            // bind events
+            selectify.on('add', onAddTag)
+            selectify.DOM.input.addEventListener('focus', onSelectFocus)
+
+            function onAddTag(e){
+                console.log(e.detail)
+            }
+
+            function onSelectFocus(e){
+                console.log(e)
+            }
+        });
+
+</script>
+
 @endsection
 

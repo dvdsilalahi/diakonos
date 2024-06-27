@@ -90,9 +90,8 @@ class MdBloodTypeController extends Controller
         if (! Gate::allows('admin')) {
             abort(403, 'You are not authorized.');
         }
-        return view('master-data.select-bloodtype',[
-            'bloodtypes' => MdBloodType::orderBy('title', 'ASC')->get(),
-        ]);
+        $collection = collect(MdBloodType::all());
+        return $collection->implode('title', ',');
     }
 
 }

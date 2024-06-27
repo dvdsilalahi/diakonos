@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('md_community_categories', function (Blueprint $table) {
+        Schema::create('md_moments', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->default("");
             $table->string('title', length:50)->nullable();
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('md_community_categories');
+        Schema::dropIfExists('md_moments');
     }
 };

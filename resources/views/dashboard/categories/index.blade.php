@@ -12,34 +12,104 @@
 @endif
 
 <div class="table-responsive col-lg-6">
-    <a href="/dashboard/categories/create" class="btn btn-primary mb-3">Create new category</a>
-    <table class="table table-striped table-sm">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Category Name</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($categories as $category)
-        <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $category->name }}</td>
-            <td class="col-sm-3">
-                <a href="/dashboard/categories/{{ $category->slug }}" class="badge bg-info"><span data-feather="eye"></span></a>
-                <a href="/dashboard/categories/{{ $category->slug }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
-                <form action="/dashboard/categories/{{ $category->slug }}" method="POST" class="d-inline">
-                    @method('delete')
-                    @csrf
-                    <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')">
-                        <span data-feather="x-circle"></span>
-                    </button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-      </tbody>
+{{--      <a href="/dashboard/categories/create" class="btn btn-primary mb-3">Create new category</a>  --}}
+    <table id="postCategories" class="display table table-striped table-sm">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </tfoot>
     </table>
-  </div>
+</div>
+<script>
+    $(document).ready(function() {
+        table_postCategories = new DataTable('#postCategories', {
+            "dom":  "<'row'<'col-sm-12'B>>" +
+                    "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                    "r<'row'<'col-sm-12't>>" +
+                    "<'row'<'col-sm-6'i><'col-sm-6'p>>",
+            "buttons": [
+                {
+                    text: '<i class="bi bi-plus-square h6"></i>',
+                    action: function ( e, dt, node, config ) {
+                        window.location.href = "/dashboard/categories/create";
+                    }
+                },
+                {
+                    extend: 'copy',
+                    text: '<i class="bi bi-clipboard-check h6"></i>',
+                    className: 'btn-export'
+                },
+                {
+                    extend: 'csv',
+                    text: '<i class="bi bi-filetype-csv h6"></i>',
+                    className: 'btn-export'
+                },
+                {
+                    extend: 'excel',
+                    text: '<i class="bi bi-filetype-xlsx h6"></i></i>',
+                    className: 'btn-export'
+                },
+                {
+                    extend: 'pdf',
+                    text:'<i class="bi bi-filetype-pdf h6"></i>',
+                    className: 'btn-export'
+                },
+                {
+                    text: '<i class="bi bi-arrow-clockwise h6"></i>',
+                    action: function ( e, dt, node, config ) {
+                        dt.ajax.reload();
+                    }
+                }
+            ],
+            "processing": true,
+            "language": {
+                "processing": '<div style="border:none; position:absolute; text-align: center; left: 10px; right: 10px; border: 0;">Loading...</div>'
+            },
+            "serverSide": false,
+            "ajax": "/admin/post-categories",
+            "columns": [
+                { "data": "#",
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                { "data": "name" },
+                { "data": "action",
+                    render: function (data, type, row, meta) {
+                        var html = '<a href="/dashboard/categories/'+row['slug']+'" class="badge bg-info"><i data-feather="eye"></i></a>' +
+                        '<a href="/dashboard/categories/'+row['slug']+'/edit" class="badge bg-warning"><span data-feather="edit"></span></a>' +
+                        '<form action="/dashboard/categories/'+row['slug']+'" method="POST" class="d-inline">' +
+                        '    @method("delete") ' +
+                        '    @csrf  '+
+                        '   <button class="badge bg-danger border-0" onclick="return confirm(&#39;Are you sure?&#39;)">' +
+                        '   <span data-feather="x-circle"></span>' +
+                        '   </button>' +
+                        '</form>';
+                        return html;
+                    }
+                },
+            ],
+            "drawCallback": function( settings ) {
+                feather.replace();
+            },
+            bAutoWidth: false,
+            aoColumns : [
+            { sWidth: '15%' },
+            { sWidth: '40%' },
+            { sWidth: '40%' },
+            ]
+        });
+    });
+
+</script>
 @endsection

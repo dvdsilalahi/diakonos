@@ -22,16 +22,28 @@
       <ul class="nav flex-column">
         <li class="nav-item">
           <a class="nav-link {{ Request::is('dashboard/categories*') ? 'active' : '' }}" aria-current="page" href="/dashboard/categories">
-            <span data-feather="home"></span>
+            <span data-feather="book-open"></span>
             Post Categories
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('dashboard/event_categories*') ? 'active' : '' }}" aria-current="page" href="/dashboard/event_categories">
+            <span data-feather="book-open"></span>
+            Event Categories
           </a>
         </li>
       </ul>
       <ul class="nav flex-column">
         <li class="nav-item">
           <a class="nav-link {{ Request::is('dashboard/members*') ? 'active' : '' }}" aria-current="page" href="/dashboard/members">
-            <span data-feather="home"></span>
+            <span data-feather="users"></span>
             Members
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('dashboard/events*') ? 'active' : '' }}" aria-current="page" href="/dashboard/members">
+            <span data-feather="calendar"></span>
+            Events
           </a>
         </li>
       </ul>

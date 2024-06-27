@@ -90,9 +90,7 @@ class MdProfessionController extends Controller
         if (! Gate::allows('admin')) {
             abort(403, 'You are not authorized.');
         }
-        return view('master-data.select-profession',[
-            'professions' => MdProfession::orderBy('title', 'ASC')->get(),
-        ]);
+        $collection = collect(MdProfession::all());
+        return $collection->implode('title', ',');
     }
-
 }

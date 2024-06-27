@@ -80,8 +80,6 @@ class DatabaseSeeder extends Seeder
 
         MdSpiritualGift::factory(7)->create();
 
-        MdCommunityCategory::factory(4)->create();
-
         Community::factory(4)->create();
 
     }

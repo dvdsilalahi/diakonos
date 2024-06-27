@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
+            $table->date('date')->nullable();
+            $table->date('until_date')->nullable();
+            $table->foreignId('moment_id');
+            $table->foreignId('event_id');
+            $table->string('description', length:256)->nullable();
+            $table->string('status', length:50)->nullable();
             $table->timestamps();
         });
     }

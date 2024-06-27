@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MdCommunityCategory;
-use App\Http\Requests\StoreMdCommunityCategoryRequest;
-use App\Http\Requests\UpdateMdCommunityCategoryRequest;
+use App\Models\MdCommunityArea;
+use App\Http\Requests\StoreMdCommunityAreaRequest;
+use App\Http\Requests\UpdateMdCommunityAreaRequest;
 
-class MdCommunityCategoryController extends Controller
+class MdCommunityAreaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class MdCommunityCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMdCommunityCategoryRequest $request)
+    public function store(StoreMdCommunityAreaRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class MdCommunityCategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(MdCommunityCategory $mdCommunityCategory)
+    public function show(MdCommunityArea $mdCommunityArea)
     {
         //
     }
@@ -43,7 +43,7 @@ class MdCommunityCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MdCommunityCategory $mdCommunityCategory)
+    public function edit(MdCommunityArea $mdCommunityArea)
     {
         //
     }
@@ -51,7 +51,7 @@ class MdCommunityCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMdCommunityCategoryRequest $request, MdCommunityCategory $mdCommunityCategory)
+    public function update(UpdateMdCommunityAreaRequest $request, MdCommunityArea $mdCommunityArea)
     {
         //
     }
@@ -59,7 +59,7 @@ class MdCommunityCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MdCommunityCategory $mdCommunityCategory)
+    public function destroy(MdCommunityArea $mdCommunityArea)
     {
         //
     }

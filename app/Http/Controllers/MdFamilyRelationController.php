@@ -90,9 +90,8 @@ class MdFamilyRelationController extends Controller
         if (! Gate::allows('admin')) {
             abort(403, 'You are not authorized.');
         }
-        return view('master-data.select-familyrelation',[
-            'famrelations' => MdFamilyRelation::all(),
-        ]);
+        $collection = collect(MdFamilyRelation::all());
+        return $collection->implode('title', ',');
     }
 
 }

@@ -90,9 +90,9 @@ class MdGenderController extends Controller
         if (! Gate::allows('admin')) {
             abort(403, 'You are not authorized.');
         }
-        return view('master-data.select-gender',[
-            'genders' => MdGender::all(),
-        ]);
+
+        $collection = collect(MdGender::all());
+        return $collection->implode('title', ',');
     }
 
 }

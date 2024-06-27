@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('md_event_categories', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->default("");
+            $table->string('title', length:50)->nullable();
+            $table->string('description', length:256)->nullable();
+            $table->json('duties_template')->nullable();
             $table->timestamps();
         });
     }

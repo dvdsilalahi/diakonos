@@ -41,6 +41,10 @@ return new class extends Migration
             $table->string('father_name', length:50)->nullable();
             $table->string('mother_name', length:50)->nullable();
             $table->string('pic', length:150)->nullable();
+            $table->date('date_of_joining')->nullable();
+            $table->string('reason_for_joining', length:50)->nullable();
+            $table->string('previous_beliefs', length:50)->nullable();
+            $table->string('previous_church', length:50)->nullable();
             $table->json('ministries')->nullable();
             $table->json('spiritual_gifts')->nullable();
             $table->json('communities')->nullable();
