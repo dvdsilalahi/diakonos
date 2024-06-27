@@ -70,9 +70,11 @@ Route::resource('/dashboard/posts', DashboardPostController::class)->middleware(
 
 Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('admin');
 
-Route::get('/admin/post-categories', [AdminCategoryController::class, 'get'])->middleware('admin');
+Route::get('/admin/post-categories', [AdminCategoryController::class, 'list'])->middleware('admin');
 
 Route::resource('/dashboard/members', AdminMemberController::class)->middleware('admin')->middleware('auth');
+
+Route::get('/admin/memberlist', [AdminMemberController::class, 'list']);
 
 Route::get('/dashboard/family/{member:uuid}', [AdminMemberController::class, "family"])->middleware('admin')->middleware('auth');
 

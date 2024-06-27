@@ -13,7 +13,7 @@
 
 <div class="table-responsive col-lg-6">
 {{--      <a href="/dashboard/categories/create" class="btn btn-primary mb-3">Create new category</a>  --}}
-    <table id="postCategories" class="display table table-striped table-sm">
+    <table id="postCategoryList" class="display table table-striped table-sm">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -32,7 +32,7 @@
 </div>
 <script>
     $(document).ready(function() {
-        table_postCategories = new DataTable('#postCategories', {
+        table_postCategories = new DataTable('#postCategoryList', {
             "dom":  "<'row'<'col-sm-12'B>>" +
                     "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
                     "r<'row'<'col-sm-12't>>" +

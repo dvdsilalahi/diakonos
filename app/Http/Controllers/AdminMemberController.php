@@ -225,4 +225,10 @@ class AdminMemberController extends Controller
             return redirect()->back()->with('success','Member '.$member->first_name.' '.$member->last_name.' has been archived!');
         }
     }
+
+    public function list()
+    {
+        return ['data' => Member::select('id')->get()];
+    }
+
 }
