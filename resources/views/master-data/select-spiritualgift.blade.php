@@ -1,6 +1,5 @@
-<select class="form-select" name="spiritualgift">
-    <option value="" selected>--- Choose Ministry ---</option>
+<select class="form-select select2" style="width:100%; heigth:100%; display:block;" aria-placeholder="--- Choose Spiritual Gift ---" id="selectSpiritualGift" name="spiritualgift" multiple="multiple">
     @foreach ($spiritualgifts as $spiritualgift)
-    <option value="{{ $spiritualgift->title }}">{{ $spiritualgift->title }}</option>
+    <option value="{{ $spiritualgift->id }}">{{ $spiritualgift->title }}</option>
     @endforeach
 </select>

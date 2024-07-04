@@ -17,7 +17,8 @@ class MdSkillTalentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'uuid' => $this->faker->unique()->sha1(),
+            'title' => strtoupper($this->faker->unique()->randomElement(['Painting', 'Writing', 'Storytelling', 'Dancing',])),
         ];
-    }
+   }
 }

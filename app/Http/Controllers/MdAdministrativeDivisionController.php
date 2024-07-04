@@ -39,6 +39,9 @@ class MdAdministrativeDivisionController extends Controller
             for ($x = 0; $x < count($request->village); $x++)
             {
                 $admindiv = new MdAdministrativeDivision();
+                if(array_key_exists($x, $request->id)){
+                    $admindiv->id = $request->id[$x];
+                }
                 $admindiv->village = strtoupper($request->village[$x]);
                 $admindiv->district = strtoupper($request->district[$x]);
                 $admindiv->municipality = strtoupper($request->municipality[$x]);
@@ -90,7 +93,7 @@ class MdAdministrativeDivisionController extends Controller
         }
         return view('master-data.table-admindiv',[
             'admindivs' => DB::table('md_administrative_divisions')
-            ->select('village','district', 'municipality', 'province', 'country')
+            ->select('id', 'village','district', 'municipality', 'province', 'country')
             ->groupBy('village','district', 'municipality', 'province', 'country')
             ->get(),
         ]);
@@ -103,7 +106,7 @@ class MdAdministrativeDivisionController extends Controller
         }
         return view('master-data.select-village',[
             'admindivs' => DB::table('md_administrative_divisions')
-            ->select('village','district', 'municipality', 'province', 'country')
+            ->select('id', 'village','district', 'municipality', 'province', 'country')
             ->groupBy('village','district', 'municipality', 'province', 'country')
             ->get(),
         ]);

@@ -7,6 +7,9 @@
             <td width="80%">
                 <strong>DESCRIPTION</strong>
             </td>
+            <td style="display: block;">
+                <strong>ID</strong>
+            </td>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +20,9 @@
             </td>
             <td>
                 <input style="width: 100%;" class="input-borderless" value="{{ $bloodtype->description }}" name="description[]" type="text" readonly>
+            </td>
+            <td style="display: block;">
+                <input class="input-borderless" value="{{ $bloodtype->id }}" name="id[]" type="text" readonly>
             </td>
         </tr>
         @endforeach

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\MdFamilyRelation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -35,6 +36,9 @@ class MdFamilyRelationController extends Controller
             for ($x = 0; $x < count($request->title); $x++)
             {
                 $familyrelation = new MdFamilyRelation();
+                if(array_key_exists($x, $request->id)){
+                    $familyrelation->id = $request->id[$x];
+                }
                 $familyrelation->title = strtoupper($request->title[$x]);
                 $familyrelation->description = $request->description[$x];
                 $familyrelation->save();

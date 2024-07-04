@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\MdBloodType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -35,6 +36,9 @@ class MdBloodTypeController extends Controller
             for ($x = 0; $x < count($request->title); $x++)
             {
                 $bloodtype = new MdBloodType();
+                if(array_key_exists($x, $request->id)){
+                    $bloodtype->id = $request->id[$x];
+                }
                 $bloodtype->title = strtoupper($request->title[$x]);
                 $bloodtype->description = $request->description[$x];
                 $bloodtype->save();
@@ -90,8 +94,11 @@ class MdBloodTypeController extends Controller
         if (! Gate::allows('admin')) {
             abort(403, 'You are not authorized.');
         }
-        $collection = collect(MdBloodType::all());
-        return $collection->implode('title', ',');
+
+        return view('master-data.select-bloodtype',[
+            'bloodtypes' => MdBloodType::orderBy('title', 'ASC')->get(),
+        ]);
+
     }
 
 }

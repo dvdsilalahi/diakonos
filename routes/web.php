@@ -74,7 +74,7 @@ Route::get('/admin/post-categories', [AdminCategoryController::class, 'list'])->
 
 Route::resource('/dashboard/members', AdminMemberController::class)->middleware('admin')->middleware('auth');
 
-Route::get('/admin/memberlist', [AdminMemberController::class, 'list']);
+Route::get('/admin/member-list', [AdminMemberController::class, 'list']);
 
 Route::get('/dashboard/family/{member:uuid}', [AdminMemberController::class, "family"])->middleware('admin')->middleware('auth');
 

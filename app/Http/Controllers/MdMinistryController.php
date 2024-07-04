@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\MdMinistry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -35,6 +36,9 @@ class MdMinistryController extends Controller
             for ($x = 0; $x < count($request->title); $x++)
             {
                 $ministry = new MdMinistry();
+                if(array_key_exists($x, $request->id)){
+                    $ministry->id = $request->id[$x];
+                }
                 $ministry->title = strtoupper($request->title[$x]);
                 $ministry->description = $request->description[$x];
                 $ministry->save();

@@ -7,6 +7,9 @@
             <td width="80%">
                 <strong>DESCRIPTION</strong>
             </td>
+            <td style="display: none;">
+                <strong>ID</strong>
+            </td>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +20,9 @@
             </td>
             <td>
                 <input style="width: 100%;" class="input-borderless" value="{{ $profession->description }}" name="description[]" type="text" readonly>
+            </td>
+            <td style="display: none;">
+                <input class="input-borderless" value="{{ $profession->id }}" name="id[]" type="hidden" readonly>
             </td>
         </tr>
         @endforeach

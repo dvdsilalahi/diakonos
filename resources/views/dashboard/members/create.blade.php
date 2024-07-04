@@ -262,7 +262,11 @@
                             <div class="card-body p-2">
                                 <label for="gender" class="form-label"><h6>Gender</h6></label>
                                 <div class="d-flex">
-                                    <input id="selectGender" class="form-control select-input" data-input="{{ $genders->pluck('title')->implode(',') }}" name='gender' placeholder="--- Choose gender ---" />
+{{--                                      <input id="selectGender" class="form-control select-input" data-input="{{ $genders->pluck('title')->implode(',') }}" placeholder="--- Choose gender ---" />
+  --}}                              <div class="select-gender col-md-10">
+                                        @include('master-data.select-gender')
+                                    </div>
+
                                     <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#genderModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
@@ -282,7 +286,11 @@
                             <div class="card-body p-2">
                                 <label for="bloodtype" class="form-label"><h6>Blood Type</h6></label>
                                 <div class="d-flex">
-                                    <input id="selectBloodType" class="form-control select-input" data-input="{{ $bloodtypes->pluck('title')->implode(',') }}" name='blood_type' placeholder="--- Choose blood type ---" />
+{{--                                      <input id="selectBloodType" class="form-control select-input" data-input="{{ $bloodtypes->pluck('title')->implode(',') }}" name='blood_type' placeholder="--- Choose blood type ---" />
+  --}}
+                                    <div class="select-bloodtype col-md-10">
+                                        @include('master-data.select-bloodtype')
+                                    </div>
                                     <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#bloodtypeModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
@@ -297,8 +305,12 @@
                             <div class="card-body p-2">
                                 <label for="citizenship" class="form-label"><h6>Citizenship</h6></label>
                                 <div class="d-flex">
-                                    <input id="selectCitizenship" class="form-control select-input" data-input="{{ $citizenships->pluck('title')->implode(',') }}" name='citizenship' placeholder="--- Choose citizenship ---" />
-                                    <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#citizenshipModal">
+{{--                                      <input id="selectCitizenship" class="form-control select-input" data-input="{{ $citizenships->pluck('title')->implode(',') }}" name='citizenship' placeholder="--- Choose citizenship ---" />
+  --}}
+                                        <div class="select-citizenship col-md-10">
+                                            @include('master-data.select-citizenship')
+                                        </div>
+                                        <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#citizenshipModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
                                     @error('citizenship')
@@ -347,8 +359,13 @@
                             <div class="card-body p-2">
                                 <label for="education" class="form-label"><h6>Education</h6></label>
                                 <div class="d-flex">
-                                    <input id="selectEducation" class="form-control select-input" data-input="{{ $educations->pluck('title')->implode(',') }}" name='education' placeholder="--- Choose education ---" />
-                                    <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#educationModal">
+{{--                                      <input id="selectEducation" class="form-control select-input" data-input="{{ $educations->pluck('title')->implode(',') }}" name='education' placeholder="--- Choose education ---" />
+  --}}
+                                <div class="select-education col-md-10">
+                                    @include('master-data.select-education')
+                                </div>
+
+                                <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#educationModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
                                     @error('education')
@@ -363,7 +380,12 @@
                             <div class="card-body p-2">
                                 <label for="profession" class="form-label"><h6>Profession</h6></label>
                                 <div class="d-flex">
-                                    <input id="selectProfession" class="form-control select-input" data-input="{{ $professions->pluck('title')->implode(',') }}" name='profession' placeholder="--- Choose profession ---" />
+ {{--                                     <input id="selectProfession" class="form-control select-input" data-input="{{ $professions->pluck('title')->implode(',') }}" name='profession' placeholder="--- Choose profession ---" />
+   --}}
+                                    <div class="select-profession col-md-10">
+                                        @include('master-data.select-profession')
+                                    </div>
+
                                     <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#professionModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
@@ -405,7 +427,12 @@
                             <div class="card-body p-2">
                                 <label for="fam_relation" class="form-label"><h6>Family Relation</h6><br></label>
                                 <div class="d-flex">
-                                    <input id="selectFamilyRelation" class="form-control select-input" data-input="{{ $famrelations->pluck('title')->implode(',') }}" name='fam_relation' placeholder="--- Choose family relation ---" />
+{{--                                      <input id="selectFamilyRelation" class="form-control select-input" data-input="{{ $famrelations->pluck('title')->implode(',') }}" name='fam_relation' placeholder="--- Choose family relation ---" />
+  --}}
+                                    <div class="select-famrelation col-md-10">
+                                        @include('master-data.select-famrelation')
+                                    </div>
+
                                     <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#famrelationModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
@@ -464,7 +491,12 @@
                             <div class="card-body p-2">
                                 <label for="ministry" class="form-label"><h6>Ministry</h6></label>
                                 <div class="d-flex">
-                                    <input name="ministries" id="Ministry" class="form-control tags-input" data-input="DEACON,PASTOR,TEACHER,EVANGELIST" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
+{{--                                      <input name="ministries" id="Ministry" class="form-control tags-input" data-input="DEACON,PASTOR,TEACHER,EVANGELIST" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
+  --}}
+                                    <div class="select-ministry col-md-10">
+                                        @include('master-data.select-ministry')
+                                    </div>
+
                                     <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#ministryModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
@@ -484,7 +516,12 @@
                             <div class="card-body p-2">
                                 <label for="spritual_gifts" class="form-label"><h6>Spiritual Gifts</h6></label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control tags-input" id="SpiritualGift" name="spiritual_gifts"  data-input="TEACHING,PROPHECY,EXHORTATION,MERCY,GIVING,LEADERSHIP,SERVICE" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
+{{--                                      <input type="text" class="form-control tags-input" id="SpiritualGift" name="spiritual_gifts"  data-input="TEACHING,PROPHECY,EXHORTATION,MERCY,GIVING,LEADERSHIP,SERVICE" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
+  --}}
+                                    <div class="select-spiritualgift col-md-10">
+                                        @include('master-data.select-spiritualgift')
+                                    </div>
+
                                     <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#spiritualgiftModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
@@ -504,7 +541,12 @@
                             <div class="card-body p-2">
                                 <label for="communities" class="form-label"><h6>Communities</h6></label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control tags-input" id="Community" name="communities"  data-input="Komsel Kamjet-Anak,Komsel Kamjet-Pemuda,Komsel Kamjet-Ortu" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
+{{--                                      <input type="text" class="form-control tags-input" id="Community" name="communities"  data-input="Komsel Kamjet-Anak,Komsel Kamjet-Pemuda,Komsel Kamjet-Ortu" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
+  --}}
+                                <div class="select-community col-md-10">
+                                    @include('master-data.select-community')
+                                </div>
+
                                 </div>
                             </div>
                         </div>
@@ -524,7 +566,16 @@
                             <div class="card-body p-2">
                                 <label for="personality_types" class="form-label"><h6>Personality Types</h6></label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control tags-input" id="PersonalityType" name="personality_types"  data-input="DOMINAN, INTIM, CERMAT, STABIL" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
+{{--                                      <input type="text" class="form-control tags-input" id="PersonalityType" name="personality_types"  data-input="DOMINAN, INTIM, CERMAT, STABIL" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
+  --}}
+                                    <div class="select-personalitytype col-md-10">
+                                        @include('master-data.select-personalitytype')
+                                    </div>
+
+                                    <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#spiritualgiftModal">
+                                        <span style="width:25px;height:25px;" data-feather="info"></span>
+                                    </button>
+
                                 </div>
                             </div>
                         </div>
@@ -536,7 +587,12 @@
                             <div class="card-body p-2">
                                 <label for="skills_talents" class="form-label"><h6>Skills and Talents</h6></label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control tags-input" id="SkillTalent" name="skills_talents"  data-input="painting,composing music,knitting,leather-working" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
+{{--                                      <input type="text" class="form-control tags-input" id="SkillTalent" name="skills_talents"  data-input="painting,composing music,knitting,leather-working" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
+  --}}
+                                    <div class="select-skilltalent col-md-10">
+                                        @include('master-data.select-skilltalent')
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -548,7 +604,12 @@
                             <div class="card-body p-2">
                                 <label for="hobbies" class="form-label"><h6>Hobbies and Activities</h6></label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control tags-input" id="HobbyActivity" name="hobbies_activities"  data-input="basketball,golf,running,walking" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
+{{--                                      <input type="text" class="form-control tags-input" id="HobbyActivity" name="hobbies_activities"  data-input="basketball,golf,running,walking" placeholder="Type a ministry" value="" data-blacklist="" writingsuggestions="false">
+  --}}
+                                <div class="select-hobbyactivity col-md-10">
+                                    @include('master-data.select-hobbyactivity')
+                                </div>
+
                                 </div>
                             </div>
                         </div>
@@ -620,30 +681,7 @@
             @csrf
             <div class="modal-body border-0">
                 <div class="table-responsive table-citizenship overflow-x col-lg-12">
-                    <table class="table table-bordered table-sm" id="tableCitizenship">
-                        <thead style="background-color:black;color:white;">
-                            <tr>
-                                <td width="20%">
-                                    <strong>TITLE</strong>
-                                </td>
-                                <td>
-                                    <strong>DESCRIPTION</strong>
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($citizenships as $citizenship)
-                            <tr>
-                                <td>
-                                    <input onkeyup="handleKey(event)" style="text-transform:uppercase" class="input-borderless" value="{{ $citizenship->title }}" name="title[]" type="text" readonly>
-                                </td>
-                                <td>
-                                    <input onkeyup="handleKey(event)" class="input-borderless" value="{{ $citizenship->description }}" name="description[]" type="text" readonly>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    @include('master-data.table-citizenship')
                 </div>
             </div>
             <div class="modal-footer border-0">
@@ -672,30 +710,7 @@
             @csrf
             <div class="modal-body border-0">
                 <div class="table-responsive table-bloodtype overflow-x col-lg-12">
-                    <table class="table table-bordered table-sm" id="tableBloodType">
-                        <thead style="background-color:black;color:white;">
-                            <tr>
-                                <td width="20%">
-                                    <strong>TITLE</strong>
-                                </td>
-                                <td width="80%">
-                                    <strong>DESCRIPTION</strong>
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($bloodtypes as $bloodtype)
-                            <tr>
-                                <td>
-                                    <input onkeyup="handleKey(event)" style="text-transform:uppercase" class="input-borderless" value="{{ $bloodtype->title }}" name="title[]" type="text" readonly>
-                                </td>
-                                <td>
-                                    <input onkeyup="handleKey(event)" style="width: 100%;" class="input-borderless" value="{{ $bloodtype->description }}" name="description[]" type="text" readonly>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    @include('master-data.table-bloodtype')
                 </div>
             </div>
             <div class="modal-footer border-0">
@@ -724,30 +739,7 @@
             @csrf
             <div class="modal-body border-0">
                 <div class="table-responsive table-education overflow-x col-lg-12">
-                    <table class="table table-bordered table-sm" id="tableEducation">
-                        <thead style="background-color:black;color:white;">
-                            <tr>
-                                <td width="20%">
-                                    <strong>TITLE</strong>
-                                </td>
-                                <td width="80%">
-                                    <strong>DESCRIPTION</strong>
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($educations as $education)
-                            <tr>
-                                <td>
-                                    <input onkeyup="handleKey(event)" style="text-transform:uppercase" class="input-borderless" value="{{ $education->title }}" name="title[]" type="text" readonly>
-                                </td>
-                                <td>
-                                    <input onkeyup="handleKey(event)" style="width: 100%;" class="input-borderless" value="{{ $education->description }}" name="description[]" type="text" readonly>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    @include('master-data.table-education')
                 </div>
             </div>
             <div class="modal-footer border-0">
@@ -776,30 +768,7 @@
             @csrf
             <div class="modal-body border-0">
                 <div class="table-responsive table-profession overflow-x col-lg-12">
-                    <table class="table table-bordered table-sm" id="tableProfession">
-                        <thead style="background-color:black;color:white;">
-                            <tr>
-                                <td width="20%">
-                                    <strong>TITLE</strong>
-                                </td>
-                                <td width="80%">
-                                    <strong>DESCRIPTION</strong>
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($professions as $profession)
-                            <tr>
-                                <td>
-                                    <input onkeyup="handleKey(event)" style="text-transform:uppercase" class="input-borderless" value="{{ $profession->title }}" name="title[]" type="text" readonly>
-                                </td>
-                                <td>
-                                    <input onkeyup="handleKey(event)" style="width: 100%;" class="input-borderless" value="{{ $profession->description }}" name="description[]" type="text" readonly>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    @include('master-data.table-profession')
                 </div>
             </div>
             <div class="modal-footer border-0">
@@ -828,30 +797,7 @@
             @csrf
             <div class="modal-body border-0">
                 <div class="table-responsive table-famrelation overflow-x col-lg-12">
-                    <table class="table table-bordered table-sm" id="tableFamilyRelation">
-                        <thead style="background-color:black;color:white;">
-                            <tr>
-                                <td width="20%">
-                                    <strong>TITLE</strong>
-                                </td>
-                                <td width="80%">
-                                    <strong>DESCRIPTION</strong>
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($famrelations as $famrelation)
-                            <tr>
-                                <td>
-                                    <input onkeyup="handleKey(event)" style="text-transform:uppercase" class="input-borderless" value="{{ $famrelation->title }}" name="title[]" type="text" readonly>
-                                </td>
-                                <td>
-                                    <input onkeyup="handleKey(event)" style="width: 100%;" class="input-borderless" value="{{ $famrelation->description }}" name="description[]" type="text" readonly>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    @include('master-data.table-famrelation')
                 </div>
             </div>
             <div class="modal-footer border-0">
@@ -880,30 +826,7 @@
             @csrf
             <div class="modal-body border-0">
                 <div class="table-responsive table-gender overflow-x col-lg-12">
-                    <table class="table table-bordered table-sm" id="tableGender">
-                        <thead style="background-color:black;color:white;">
-                            <tr>
-                                <td width="20%">
-                                    <strong>TITLE</strong>
-                                </td>
-                                <td width="80%">
-                                    <strong>DESCRIPTION</strong>
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($genders as $gender)
-                            <tr>
-                                <td>
-                                    <input onkeyup="handleKey(event)" style="text-transform:uppercase" class="input-borderless" value="{{ $gender->title }}" name="title[]" type="text" readonly>
-                                </td>
-                                <td>
-                                    <input onkeyup="handleKey(event)" style="width: 100%;" class="input-borderless" value="{{ $gender->description }}" name="description[]" type="text" readonly>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    @include('master-data.table-gender')
                 </div>
             </div>
             <div class="modal-footer border-0">
@@ -930,30 +853,7 @@
             @csrf
             <div class="modal-body border-0">
                 <div class="table-responsive table-ministry overflow-x col-lg-12">
-                    <table class="table table-bordered table-sm" id="tableMinistry">
-                        <thead style="background-color:black;color:white;">
-                            <tr>
-                                <td width="20%">
-                                    <strong>TITLE</strong>
-                                </td>
-                                <td width="80%">
-                                    <strong>DESCRIPTION</strong>
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($ministries as $ministry)
-                            <tr>
-                                <td>
-                                    <input onkeyup="handleKey(event)" style="text-transform:uppercase" class="input-borderless" value="{{ $gender->title }}" name="title[]" type="text" readonly>
-                                </td>
-                                <td>
-                                    <input onkeyup="handleKey(event)" style="width: 100%;" class="input-borderless" value="{{ $gender->description }}" name="description[]" type="text" readonly>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    @include('master-data.table-ministry')
                 </div>
             </div>
             <div class="modal-footer border-0">
@@ -1112,6 +1012,11 @@
 
         if(selectId!=null && selectUrl!=null){
             $('#'+selectId).load(selectUrl, function(data) {
+            });
+        }
+
+{{--          if(selectId!=null && selectUrl!=null){
+            $('#'+selectId).load(selectUrl, function(data) {
                 elm = document.getElementById(selectId);
                 elm.setAttribute('data-input',data);
                 var selectify = new Tagify(elm, {
@@ -1125,7 +1030,7 @@
                 selectify.settings.whitelist.push(...newWhitelist)
             });
 
-        }
+        }  --}}
     }
 
     function insertRow(tableId, row){
@@ -1176,17 +1081,18 @@
         initMdEvent("tableGender");
         initMdEvent("tableMinistry");
 
-        document.getElementById("villageId").addEventListener("change", function() {
-            var district = this.options[this.selectedIndex].getAttribute("district");
-            var municipality = this.options[this.selectedIndex].getAttribute("municipality");
-            var province = this.options[this.selectedIndex].getAttribute("province");
-            var country = this.options[this.selectedIndex].getAttribute("country");
+        $("#selectVillage").on('change', function(){
+            var district = $(this).find(":selected")[0].attributes['district'].value;
+            var municipality = $(this).find(":selected")[0].attributes['municipality'].value;
+            var province = $(this).find(":selected")[0].attributes['province'].value;
+            var country = $(this).find(":selected")[0].attributes['country'].value;
 
             document.getElementById('district').value = district;
             document.getElementById('municipality').value = municipality;
             document.getElementById('province').value = province;
             document.getElementById('country').value = country;
-        });
+
+        })
     };
 
     function handleKey(e){
@@ -1216,7 +1122,6 @@
                 }
             },
             error: function (msg) {
-               console.log(msg);
                 var errors = msg.responseJSON;
             }
          });
@@ -1241,7 +1146,6 @@
                 }
             },
             error: function (msg) {
-               console.log(msg);
                 var errors = msg.responseJSON;
             }
          });
@@ -1266,7 +1170,6 @@
                 }
             },
             error: function (msg) {
-               console.log(msg);
                 var errors = msg.responseJSON;
             }
          });
@@ -1290,7 +1193,6 @@
                 }
             },
             error: function (msg) {
-               console.log(msg);
                 var errors = msg.responseJSON;
             }
          });
@@ -1315,7 +1217,6 @@
                 }
             },
             error: function (msg) {
-               console.log(msg);
                 var errors = msg.responseJSON;
             }
          });
@@ -1335,12 +1236,15 @@
             dataType: 'json',
             url:'/admin/genders',
             success:function(data) {
+                console.log(data);
                 if(data==1){
                     refreshTableGender();
+                } else {
+                    var info = data[Object.keys(data)[0]][0];
+                    alert(info);
                 }
             },
             error: function (msg) {
-               console.log(msg);
                 var errors = msg.responseJSON;
             }
          });
@@ -1365,7 +1269,6 @@
                 }
             },
             error: function (msg) {
-               console.log(msg);
                 var errors = msg.responseJSON;
             }
          });
@@ -1390,7 +1293,6 @@
                 }
             },
             error: function (msg) {
-               console.log(msg);
                 var errors = msg.responseJSON;
             }
          });
@@ -1475,7 +1377,7 @@
         });
 
         $('div.select-village').load('/admin/select-admindivs', function() {
-            document.getElementById("villageId").addEventListener("change", function() {
+            document.getElementById("selectVillage").addEventListener("change", function() {
                 var district = this.options[this.selectedIndex].getAttribute("district");
                 var municipality = this.options[this.selectedIndex].getAttribute("municipality");
                 var province = this.options[this.selectedIndex].getAttribute("province");
@@ -1493,7 +1395,7 @@
 
 </script>
 
-<script>
+{{--  <script>
     inputElms_list = document.querySelectorAll('.tags-input');
     var inputElms_array = [...inputElms_list];
         inputElms_array.forEach(inputElm => {
@@ -1501,7 +1403,6 @@
                 enforceWhitelist: true,
                 whitelist: inputElm.value.trim().split(/\s*,\s*/) // Array of values. stackoverflow.com/a/43375571/104380
             });
-            console.log(tagify);
 
 // Chainable event listeners
             tagify.on('add', onAddTag)
@@ -1579,8 +1480,9 @@
             }
         });
 
-</script>
-<script>
+</script>  --}}
+
+{{--  <script>
     selectElms_list = document.querySelectorAll('.select-input');
     var selectElms_array = [...selectElms_list];
         selectElms_array.forEach(selectElm => {
@@ -1590,7 +1492,6 @@
                 whitelist: selectElm.getAttribute("data-input").trim().split(','), // Array of values. stackoverflow.com/a/43375571/104380
                 blacklist: [],
             });
-            console.log(selectify);
 
             // bind events
             selectify.on('add', onAddTag)
@@ -1605,7 +1506,25 @@
             }
         });
 
-</script>
+</script>  --}}
 
+<script>
+    $(document).ready(function() {
+        var select2elms = document.querySelectorAll('.select2');
+
+        [].forEach.call(select2elms, function(select2elm) {
+          // do whatever
+          var select2Id = select2elm.getAttribute('id');
+          var placeHolder = select2elm.getAttribute('aria-placeholder');
+            if(select2Id){
+                $('#'+select2Id).select2({
+                    containerCss : {"display":"block"},
+                    placeholder: placeHolder,
+                    allowClear: true
+                });
+            }
+        });
+    });
+</script>
 @endsection
 

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('md_blood_types', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->default("");
-            $table->string('title', length:50)->nullable();
+            $table->string('title', length:50)->unique();
             $table->string('description', length:256)->nullable();
             $table->timestamps();
         });

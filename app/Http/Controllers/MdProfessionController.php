@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\MdProfession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -35,6 +36,9 @@ class MdProfessionController extends Controller
             for ($x = 0; $x < count($request->title); $x++)
             {
                 $profession = new MdProfession();
+                if(array_key_exists($x, $request->id)){
+                    $profession->id = $request->id[$x];
+                }
                 $profession->title = strtoupper($request->title[$x]);
                 $profession->description = $request->description[$x];
                 $profession->save();

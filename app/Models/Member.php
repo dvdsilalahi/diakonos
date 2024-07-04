@@ -54,4 +54,9 @@ class Member extends Model
         return 'uuid';
      }
 
+     public function gender(){
+        return $this->belongsTo(MdGender::class);
+     }
+
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\MdCommunityArea;
 use App\Http\Requests\StoreMdCommunityAreaRequest;
 use App\Http\Requests\UpdateMdCommunityAreaRequest;

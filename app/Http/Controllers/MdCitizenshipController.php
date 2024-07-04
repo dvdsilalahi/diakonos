@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\MdCitizenship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -36,6 +37,9 @@ class MdCitizenshipController extends Controller
             for ($x = 0; $x < count($request->title); $x++)
             {
                 $citizenship = new MdCitizenship();
+                if(array_key_exists($x, $request->id)){
+                    $citizenship->id = $request->id[$x];
+                }
                 $citizenship->title = strtoupper($request->title[$x]);
                 $citizenship->description = $request->description[$x];
                 $citizenship->save();

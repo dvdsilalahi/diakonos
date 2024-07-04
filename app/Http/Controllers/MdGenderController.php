@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\MdGender;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 
 class MdGenderController extends Controller
 {
@@ -29,18 +31,36 @@ class MdGenderController extends Controller
      */
     public function store(Request $request)
     {
-        MdGender::truncate();
+        $validator = Validator::make($request->all(), [
+            "title"    => "required|array",
+            "title.*"  => "required|string|max:50",
+            "description"    => "array",
+            "description.*"  => "nullable|string|max:256",
+            "id"    => "array",
+            "id.*"  => "required|integer",
+        ]);
 
-        if(count($request->title)>0){
-            for ($x = 0; $x < count($request->title); $x++)
-            {
-                $gender = new MdGender();
-                $gender->title = strtoupper($request->title[$x]);
-                $gender->description = $request->description[$x];
-                $gender->save();
+        if($validator->passes()){
+            $validatedData = $validator->getData();
+
+            if(count($validatedData['title']) === count(array_unique(array_map("strtoupper",$validatedData['title'])))){
+                if(count($validatedData['title'])>0){
+                    for ($x = 0; $x < count($validatedData['title']); $x++)
+                    {
+                        $data['title'] = strtoupper($validatedData['title'][$x]);
+                        $data['description'] = $validatedData['description'][$x];
+                        $data['id'] = $validatedData['id'][$x];
+                        MdGender::where('id',$data['id'])->update($data);
+                    }
+                }
+                return true;
+            } else {
+                $ndup = count($validatedData['title']) - count(array_unique(array_map("strtoupper",$validatedData['title'])));
+                return json_encode(['title'=>["There is $ndup duplicate(s) in the 'title' column"]]);
             }
+        } else {
+            return $validator->getMessageBag();
         }
-        return true;
     }
 
     /**
@@ -81,7 +101,7 @@ class MdGenderController extends Controller
             abort(403, 'You are not authorized.');
         }
         return view('master-data.table-gender',[
-            'genders' => MdGender::all(),
+            'genders' => MdGender::orderBy('title', 'ASC')->get(),
         ]);
     }
 
@@ -91,8 +111,8 @@ class MdGenderController extends Controller
             abort(403, 'You are not authorized.');
         }
 
-        $collection = collect(MdGender::all());
-        return $collection->implode('title', ',');
+        return view('master-data.select-gender',[
+            'genders' => MdGender::orderBy('title', 'ASC')->get(),
+        ]);
     }
-
 }

@@ -16,6 +16,9 @@
             <td>
                 <strong>COUNTRY</strong>
             </td>
+            <td style="display: none;">
+                <strong>ID</strong>
+            </td>
         </tr>
     </thead>
     <tbody>
@@ -35,6 +38,9 @@
             </td>
             <td>
                 <input onkeyup="handleKey(event)" style="text-transform:uppercase" class="input-borderless" value="{{ $admindiv->country }}" name="country[]" type="text" readonly>
+            </td>
+            <td style="display: none;">
+                <input class="input-borderless" value="{{ $admindiv->id }}" name="id[]" type="hidden" readonly>
             </td>
         </tr>
         @endforeach

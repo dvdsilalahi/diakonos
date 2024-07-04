@@ -5,7 +5,10 @@ namespace Database\Seeders;
 use App\Models\Community;
 use App\Models\MdAdministrativeDivision;
 use App\Models\MdCommunityCategory;
+use App\Models\MdHobbyActivity;
 use App\Models\MdMinistry;
+use App\Models\MdPersonalityType;
+use App\Models\MdSkillTalent;
 use App\Models\MdSpiritualGift;
 use App\Models\Post;
 use App\Models\User;
@@ -80,7 +83,13 @@ class DatabaseSeeder extends Seeder
 
         MdSpiritualGift::factory(7)->create();
 
-        Community::factory(4)->create();
+        Community::factory(3)->create();
+
+        MdPersonalityType::factory(4)->create();
+
+        MdSkillTalent::factory(4)->create();
+
+        MdHobbyActivity::factory(3)->create();
 
     }
 }

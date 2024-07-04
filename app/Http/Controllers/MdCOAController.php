@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\MdCOA;
 use App\Http\Requests\StoreMdCOARequest;
 use App\Http\Requests\UpdateMdCOARequest;

@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Community;
+use App\Models\MdHobbyActivity;
 use App\Models\MdMinistry;
+use App\Models\MdPersonalityType;
+use App\Models\MdSkillTalent;
+use App\Models\MdSpiritualGift;
 use App\Models\Member;
 use App\Models\MdGender;
 use App\Models\MdBloodType;
@@ -55,7 +60,7 @@ class AdminMemberController extends Controller
     {
         return view('dashboard.members.create',[
             'admindivs' => DB::table('md_administrative_divisions')
-            ->select('village','district', 'municipality', 'province', 'country')
+            ->select('id','village','district', 'municipality', 'province', 'country')
             ->groupBy('village','district', 'municipality', 'province', 'country')
             ->get(),
             'citizenships' => MdCitizenship::all(),
@@ -65,6 +70,11 @@ class AdminMemberController extends Controller
             'famrelations' => MdFamilyRelation::orderBy('title', 'ASC')->get(),
             'genders' => MdGender::all(),
             'ministries' => MdMinistry::all(),
+            'spiritualgifts' => MdSpiritualGift::all(),
+            'communities' => Community::all(),
+            'personalitytypes' => MdPersonalityType::all(),
+            'skillstalents' => MdSkillTalent::all(),
+            'hobbiesactivities' => MdHobbyActivity::all(),
         ]);
     }
 
@@ -228,7 +238,7 @@ class AdminMemberController extends Controller
 
     public function list()
     {
-        return ['data' => Member::select('id')->get()];
+        return ['data' => Member::all()];
     }
 
 }

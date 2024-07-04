@@ -1,6 +1,5 @@
-<select class="form-select" name="ministry">
-    <option value="" selected>--- Choose Ministry ---</option>
+<select class="form-select select2" style="width:100%; heigth:100%; display:block;" aria-placeholder="--- Choose Ministry ---" id="selectMinistry" name="ministry" multiple="multiple">
     @foreach ($ministries as $ministry)
-    <option value="{{ $ministry->title }}">{{ $ministry->title }}</option>
+    <option value="{{ $ministry->id }}">{{ $ministry->title }}</option>
     @endforeach
 </select>

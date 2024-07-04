@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('communities', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->default("");
+            $table->string('category', length:50)->nullable();
             $table->string('segment', length:50)->nullable();
             $table->string('area', length:100)->nullable();
             $table->json('leaders')->nullable();
             $table->string('address', length:200)->nullable();
             $table->string('gmap_link', length:100)->nullable();
-            $table->text('notes')->change();
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

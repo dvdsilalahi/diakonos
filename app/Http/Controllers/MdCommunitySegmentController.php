@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\MdCommunitySegment;
 use App\Http\Requests\StoreMdCommunitySegmentRequest;
 use App\Http\Requests\UpdateMdCommunitySegmentRequest;

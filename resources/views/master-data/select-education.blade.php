@@ -1,6 +1,6 @@
-<select class="form-select" name="education">
-    <option value="" selected>--- Choose Education ---</option>
+<select class="form-select select2" style="width:100%; heigth:100%; display:block;" aria-placeholder="--- Choose Education ---" id="selectEducation" name="education">
+    <option value="" selected></option>
     @foreach ($educations as $education)
-    <option value="{{ $education->title }}">{{ $education->title }}</option>
+    <option value="{{ $education->id }}">{{ $education->title }}</option>
     @endforeach
 </select>

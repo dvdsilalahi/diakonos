@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Community;
 use App\Http\Requests\StoreCommunityRequest;
 use App\Http\Requests\UpdateCommunityRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CommunityController extends Controller
 {
@@ -62,5 +64,25 @@ class CommunityController extends Controller
     public function destroy(Community $community)
     {
         //
+    }
+
+    public function table()
+    {
+        if (! Gate::allows('admin')) {
+            abort(403, 'You are not authorized.');
+        }
+        return view('master-data.table-community',[
+            'communities' => Community::orderBy('title', 'ASC')->get(),
+        ]);
+    }
+
+    public function select()
+    {
+        if (! Gate::allows('admin')) {
+            abort(403, 'You are not authorized.');
+        }
+        return view('master-data.select-community',[
+            'communities' => Community::orderBy('title', 'ASC')->get(),
+        ]);
     }
 }

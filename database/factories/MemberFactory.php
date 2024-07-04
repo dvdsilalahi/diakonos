@@ -17,8 +17,8 @@ class MemberFactory extends Factory
     public function definition(): array
     {
         return [
+            'uuid' => $this->faker->unique()->sha1(),
             'member_code' => $this->faker->unique()->numberBetween(1000000000,9999999999),
-            'uuid' => sha1($this->faker->unique()->safeEmail),
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'email' => $this->faker->unique()->safeEmail,

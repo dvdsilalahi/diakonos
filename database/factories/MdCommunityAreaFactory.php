@@ -17,7 +17,8 @@ class MdCommunityAreaFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'uuid' => $this->faker->unique()->sha1(),
+            'title' => strtoupper($this->faker->unique()->randomElement(['Elementary School', 'Junior High School', 'Senior High School', 'Bachelor Degree', 'Master Degree', 'Doctoral Degree'])),
         ];
     }
 }

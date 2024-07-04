@@ -24,4 +24,9 @@ class MdGender extends Model
         return 'uuid';
      }
 
+     public function members(){
+        return $this->hasMany(Member::class);
+    }
+
+
 }

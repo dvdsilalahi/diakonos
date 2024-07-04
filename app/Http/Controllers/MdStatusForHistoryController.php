@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\MdStatusForHistory;
 use App\Http\Requests\StoreMdStatusForHistoryRequest;
 use App\Http\Requests\UpdateMdStatusForHistoryRequest;

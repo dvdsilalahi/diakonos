@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\MdEducation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -34,6 +35,9 @@ class MdEducationController extends Controller
             for ($x = 0; $x < count($request->title); $x++)
             {
                 $education = new MdEducation();
+                if(array_key_exists($x, $request->id)){
+                    $education->id = $request->id[$x];
+                }
                 $education->title = strtoupper($request->title[$x]);
                 $education->description = $request->description[$x];
                 $education->save();

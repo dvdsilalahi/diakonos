@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\MdEventDuty;
 use App\Http\Requests\StoreMdEventDutyRequest;
 use App\Http\Requests\UpdateMdEventDutyRequest;
