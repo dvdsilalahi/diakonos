@@ -1119,6 +1119,9 @@
             success:function(data) {
                 if(data==1){
                     refreshTableCitizenship();
+                } else {
+                    var info = data[Object.keys(data)[0]][0];
+                    alert(info);
                 }
             },
             error: function (msg) {
@@ -1143,6 +1146,9 @@
             success:function(data) {
                 if(data==1){
                     refreshTableBloodType();
+                } else {
+                    var info = data[Object.keys(data)[0]][0];
+                    alert(info);
                 }
             },
             error: function (msg) {
@@ -1167,6 +1173,9 @@
             success:function(data) {
                 if(data==1){
                     refreshTableEducation();
+                } else {
+                    var info = data[Object.keys(data)[0]][0];
+                    alert(info);
                 }
             },
             error: function (msg) {
@@ -1190,6 +1199,9 @@
             success:function(data) {
                 if(data==1){
                     refreshTableProfession();
+                } else {
+                    var info = data[Object.keys(data)[0]][0];
+                    alert(info);
                 }
             },
             error: function (msg) {
@@ -1214,6 +1226,9 @@
             success:function(data) {
                 if(data==1){
                     refreshTableFamilyRelation();
+                } else {
+                    var info = data[Object.keys(data)[0]][0];
+                    alert(info);
                 }
             },
             error: function (msg) {
@@ -1236,7 +1251,6 @@
             dataType: 'json',
             url:'/admin/genders',
             success:function(data) {
-                console.log(data);
                 if(data==1){
                     refreshTableGender();
                 } else {
@@ -1266,6 +1280,9 @@
             success:function(data) {
                 if(data==1){
                     refreshTableMinistry();
+                } else {
+                    var info = data[Object.keys(data)[0]][0];
+                    alert(info);
                 }
             },
             error: function (msg) {

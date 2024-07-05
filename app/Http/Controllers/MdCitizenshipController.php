@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\MdCitizenship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 
 
 class MdCitizenshipController extends Controller
@@ -31,7 +32,60 @@ class MdCitizenshipController extends Controller
      */
     public function store(Request $request)
     {
-        MdCitizenship::truncate();
+        $validator = Validator::make($request->all(), [
+            "title"    => "required|array",
+            "title.*"  => "required|string|max:50",
+            "description"    => "array",
+            "description.*"  => "nullable|string|max:256",
+            "id"    => "array",
+            "id.*"  => "nullable|integer",
+        ]);
+        if($validator->passes()){
+            $validatedData = $validator->getData();
+
+            if(count($validatedData['title']) === count(array_unique(array_map("strtoupper",$validatedData['title'])))){
+                if(count($validatedData['title'])>0){
+
+                    $citizenships = MdCitizenship::all();
+                    foreach($citizenships as $citizenship){
+                        if(!in_array($citizenship->id, $validatedData['id'])){
+                            MdCitizenship::destroy($citizenship->id);
+                        }
+                    }
+
+                    for ($x = 0; $x < count($validatedData['title']); $x++)
+                    {
+                        if(array_key_exists($x, $validatedData['id'])){
+                            $data['id'] = $validatedData['id'][$x];
+                            $data['title'] = strtoupper($validatedData['title'][$x]);
+                            $data['description'] = $validatedData['description'][$x];
+                            if(!MdCitizenship::select('uuid')->where('id',$data['id'])->get()){
+                                $data['uuid'] = sha1($data['title']);
+                            }
+                            MdCitizenship::where('id',$data['id'])->update($data);
+                        }
+                    }
+                    for ($x = 0; $x < count($validatedData['title']); $x++)
+                    {
+                        if(!array_key_exists($x, $validatedData['id'])){
+                            $data['title'] = strtoupper($validatedData['title'][$x]);
+                            $data['description'] = $validatedData['description'][$x];
+                            $data['uuid'] = sha1($data['title']);
+                            MdCitizenship::create($data);
+                        }
+                    }
+
+                }
+                return true;
+            } else {
+                $ndup = count($validatedData['title']) - count(array_unique(array_map("strtoupper",$validatedData['title'])));
+                return json_encode(['title'=>["There is $ndup duplicate(s) in the 'title' column"]]);
+            }
+
+        } else {
+            return $validator->getMessageBag();
+        }
+
 
         if(count($request->title)>0){
             for ($x = 0; $x < count($request->title); $x++)
@@ -86,7 +140,7 @@ class MdCitizenshipController extends Controller
             abort(403, 'You are not authorized.');
         }
         return view('master-data.table-citizenship',[
-            'citizenships' => MdCitizenship::all(),
+            'citizenships' => MdCitizenship::orderBy('title', 'ASC')->get(),
         ]);
     }
 
@@ -95,8 +149,10 @@ class MdCitizenshipController extends Controller
         if (! Gate::allows('admin')) {
             abort(403, 'You are not authorized.');
         }
-        $collection = collect(MdCitizenship::all());
-        return $collection->implode('title', ',');
+
+        return view('master-data.select-citizenship',[
+            'citizenships' => MdCitizenship::orderBy('title', 'ASC')->get(),
+        ]);
     }
 
 }

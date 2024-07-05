@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use App\Models\MdFamilyRelation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 
 class MdFamilyRelationController extends Controller
 {
@@ -30,7 +30,60 @@ class MdFamilyRelationController extends Controller
      */
     public function store(Request $request)
     {
-        MdFamilyRelation::truncate();
+        $validator = Validator::make($request->all(), [
+            "title"    => "required|array",
+            "title.*"  => "required|string|max:50",
+            "description"    => "array",
+            "description.*"  => "nullable|string|max:256",
+            "id"    => "array",
+            "id.*"  => "nullable|integer",
+        ]);
+        if($validator->passes()){
+            $validatedData = $validator->getData();
+
+            if(count($validatedData['title']) === count(array_unique(array_map("strtoupper",$validatedData['title'])))){
+                if(count($validatedData['title'])>0){
+
+                    $familyrelations = MdFamilyRelation::all();
+                    foreach($familyrelations as $familyrelation){
+                        if(!in_array($familyrelation->id, $validatedData['id'])){
+                            MdFamilyRelation::destroy($familyrelation->id);
+                        }
+                    }
+
+                    for ($x = 0; $x < count($validatedData['title']); $x++)
+                    {
+                        if(array_key_exists($x, $validatedData['id'])){
+                            $data['id'] = $validatedData['id'][$x];
+                            $data['title'] = strtoupper($validatedData['title'][$x]);
+                            $data['description'] = $validatedData['description'][$x];
+                            if(!MdFamilyRelation::select('uuid')->where('id',$data['id'])->get()){
+                                $data['uuid'] = sha1($data['title']);
+                            }
+                            MdFamilyRelation::where('id',$data['id'])->update($data);
+                        }
+                    }
+                    for ($x = 0; $x < count($validatedData['title']); $x++)
+                    {
+                        if(!array_key_exists($x, $validatedData['id'])){
+                            $data['title'] = strtoupper($validatedData['title'][$x]);
+                            $data['description'] = $validatedData['description'][$x];
+                            $data['uuid'] = sha1($data['title']);
+                            MdFamilyRelation::create($data);
+                        }
+                    }
+
+                }
+                return true;
+            } else {
+                $ndup = count($validatedData['title']) - count(array_unique(array_map("strtoupper",$validatedData['title'])));
+                return json_encode(['title'=>["There is $ndup duplicate(s) in the 'title' column"]]);
+            }
+
+        } else {
+            return $validator->getMessageBag();
+        }
+
 
         if(count($request->title)>0){
             for ($x = 0; $x < count($request->title); $x++)
@@ -84,8 +137,8 @@ class MdFamilyRelationController extends Controller
         if (! Gate::allows('admin')) {
             abort(403, 'You are not authorized.');
         }
-        return view('master-data.table-familyrelation',[
-            'famrelations' => MdFamilyRelation::all(),
+        return view('master-data.table-famrelation',[
+            'famrelations' => MdFamilyRelation::orderBy('title', 'ASC')->get(),
         ]);
     }
 
@@ -94,8 +147,10 @@ class MdFamilyRelationController extends Controller
         if (! Gate::allows('admin')) {
             abort(403, 'You are not authorized.');
         }
-        $collection = collect(MdFamilyRelation::all());
-        return $collection->implode('title', ',');
+
+        return view('master-data.select-famrelation',[
+            'familyrelations' => MdFamilyRelation::orderBy('title', 'ASC')->get(),
+        ]);
     }
 
 }

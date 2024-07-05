@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use App\Models\MdBloodType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 
 class MdBloodTypeController extends Controller
 {
@@ -30,7 +30,60 @@ class MdBloodTypeController extends Controller
      */
     public function store(Request $request)
     {
-        MdBloodType::truncate();
+        $validator = Validator::make($request->all(), [
+            "title"    => "required|array",
+            "title.*"  => "required|string|max:50",
+            "description"    => "array",
+            "description.*"  => "nullable|string|max:256",
+            "id"    => "array",
+            "id.*"  => "nullable|integer",
+        ]);
+        if($validator->passes()){
+            $validatedData = $validator->getData();
+
+            if(count($validatedData['title']) === count(array_unique(array_map("strtoupper",$validatedData['title'])))){
+                if(count($validatedData['title'])>0){
+
+                    $bloodtypes = MdBloodType::all();
+                    foreach($bloodtypes as $bloodtype){
+                        if(!in_array($bloodtype->id, $validatedData['id'])){
+                            MdBloodType::destroy($bloodtype->id);
+                        }
+                    }
+
+                    for ($x = 0; $x < count($validatedData['title']); $x++)
+                    {
+                        if(array_key_exists($x, $validatedData['id'])){
+                            $data['id'] = $validatedData['id'][$x];
+                            $data['title'] = strtoupper($validatedData['title'][$x]);
+                            $data['description'] = $validatedData['description'][$x];
+                            if(!MdBloodType::select('uuid')->where('id',$data['id'])->get()){
+                                $data['uuid'] = sha1($data['title']);
+                            }
+                            MdBloodType::where('id',$data['id'])->update($data);
+                        }
+                    }
+                    for ($x = 0; $x < count($validatedData['title']); $x++)
+                    {
+                        if(!array_key_exists($x, $validatedData['id'])){
+                            $data['title'] = strtoupper($validatedData['title'][$x]);
+                            $data['description'] = $validatedData['description'][$x];
+                            $data['uuid'] = sha1($data['title']);
+                            MdBloodType::create($data);
+                        }
+                    }
+
+                }
+                return true;
+            } else {
+                $ndup = count($validatedData['title']) - count(array_unique(array_map("strtoupper",$validatedData['title'])));
+                return json_encode(['title'=>["There is $ndup duplicate(s) in the 'title' column"]]);
+            }
+
+        } else {
+            return $validator->getMessageBag();
+        }
+
 
         if(count($request->title)>0){
             for ($x = 0; $x < count($request->title); $x++)
@@ -98,7 +151,6 @@ class MdBloodTypeController extends Controller
         return view('master-data.select-bloodtype',[
             'bloodtypes' => MdBloodType::orderBy('title', 'ASC')->get(),
         ]);
-
     }
 
 }

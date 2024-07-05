@@ -10,9 +10,6 @@
             <td style="display: none;">
                 <strong>ID</strong>
             </td>
-            <td style="display: none;">
-                <strong>ID</strong>
-            </td>
         </tr>
     </thead>
     <tbody>
@@ -25,7 +22,7 @@
                 <input style="width: 100%;" class="input-borderless" value="{{ $famrelation->description }}" name="description[]" type="text" readonly>
             </td>
             <td style="display: none;">
-                <input class="input-borderless" value="{{ $famrelation->id }}" name="id[]" type="hidden" readonly>
+                <input class="input-borderless" value="{{ $famrelation->id }}" name="id[]" type="text" readonly>
             </td>
         </tr>
         @endforeach

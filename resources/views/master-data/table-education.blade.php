@@ -7,7 +7,7 @@
             <td width="80%">
                 <strong>DESCRIPTION</strong>
             </td>
-            <td style="display: none;">
+            <td style="display: block;">
                 <strong>ID</strong>
             </td>
         </tr>
@@ -21,8 +21,8 @@
             <td>
                 <input style="width: 100%;" class="input-borderless" value="{{ $education->description }}" name="description[]" type="text" readonly>
             </td>
-            <td style="display: none;">
-                <input class="input-borderless" value="{{ $education->id }}" name="id[]" type="hidden" readonly>
+            <td style="display: block;">
+                <input class="input-borderless" value="{{ $education->id }}" name="id[]" type="text" readonly>
             </td>
         </tr>
         @endforeach

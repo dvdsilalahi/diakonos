@@ -47,10 +47,12 @@ class MdGenderController extends Controller
                 if(count($validatedData['title'])>0){
                     for ($x = 0; $x < count($validatedData['title']); $x++)
                     {
-                        $data['title'] = strtoupper($validatedData['title'][$x]);
-                        $data['description'] = $validatedData['description'][$x];
-                        $data['id'] = $validatedData['id'][$x];
-                        MdGender::where('id',$data['id'])->update($data);
+                        if(array_key_exists($x, $validatedData['id'])){
+                            $data['id'] = $validatedData['id'][$x];
+                            $data['title'] = strtoupper($validatedData['title'][$x]);
+                            $data['description'] = $validatedData['description'][$x];
+                            MdGender::where('id',$data['id'])->update($data);
+                        }
                     }
                 }
                 return true;
