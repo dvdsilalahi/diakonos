@@ -8,13 +8,19 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-<!-- Trix Editor CSS -->
-<link href="/css/trix.css" rel="stylesheet">
-{{--  <!-- Tagify CSS -->
-<link href="/css/tagify.css" rel="stylesheet">
+{{--  <!-- Calendar CSS -->
+<link rel="stylesheet" href="/css/event-calendar/style.css">
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.2.0/main.min.css'>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.3.0/main.min.css'>
   --}}
 
+<!--Vkurko Calendar -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@3.2.2/event-calendar.min.css">
 
+<!-- Trix Editor CSS -->
+<link href="/css/trix.css" rel="stylesheet">
 
 <style>
   #postCategories_processing{
@@ -89,3 +95,8 @@
     }
 
 </style>
+
+{{--  <!-- Custom styles for Sidebar -->
+<link href="/css/sidebar-style.css" rel="stylesheet">
+<link href="/css/sidebar-demo.css" rel="stylesheet">
+  --}}

@@ -17,7 +17,8 @@ class MdEventDutyFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'uuid' => $this->faker->unique()->sha1(),
+            'title' => strtoupper($this->faker->unique()->randomElement(['Preacher', 'Gitarist', 'Pianist', 'Choir',])),
         ];
     }
 }

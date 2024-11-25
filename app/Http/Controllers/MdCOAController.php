@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\MdCOA;
 use App\Http\Requests\StoreMdCOARequest;
 use App\Http\Requests\UpdateMdCOARequest;
+use Illuminate\Support\Facades\Gate;
 
 class MdCOAController extends Controller
 {
@@ -64,4 +65,16 @@ class MdCOAController extends Controller
     {
         //
     }
+
+    public function select()
+    {
+        if (! Gate::allows('admin')) {
+            abort(403, 'You are not authorized.');
+        }
+
+        return view('master-data.select-account',[
+            'accounts' => MdCOA::orderBy('account_name', 'ASC')->get(),
+        ]);
+    }
+
 }

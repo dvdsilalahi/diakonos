@@ -17,7 +17,12 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'uuid' => $this->faker->unique()->sha1(),
+            'title' => $this->faker->randomElement(['Ibadah Umum', 'Sekolah Minggu', 'Retreat']),
+            'category_id' => $this->faker->randomElement([1]),
+            'community_id' => $this->faker->randomElement([1]),
+            'start_date' => $this->faker->date(),
+            'duties_officers' => $this->faker->randomElement([json_encode(['wl' => ['Davidy Silalahi']]),json_encode(['singers' => ['Josephine Dame', 'Noah Marchiano']])]),
         ];
     }
 }

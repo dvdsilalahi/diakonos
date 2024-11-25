@@ -17,7 +17,8 @@ class MdEventCategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'uuid' => $this->faker->unique()->sha1(),
+            'title' => strtoupper($this->faker->unique()->randomElement(['Sunday Service', 'Camp', 'Seminar', 'Training'])),
         ];
     }
 }

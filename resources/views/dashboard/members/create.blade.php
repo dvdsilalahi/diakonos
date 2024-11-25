@@ -48,6 +48,19 @@
                                 </div>
                           </div>
                         </div>
+                        <div class="card border-0">
+                            <div class="card-body p-2">
+                                <label for="nickname" class="form-label"><h6>Nickname</h6></label>
+                                <div class="d-flex">
+                                    <input type="text" onkeydown="return /[a-zA-Z ]/i.test(event.key)" class="form-control @error('nickname') is-invalid @enderror" id="nickname" name="nickname"  autofocus value="{{ old('nickname') }}">
+                                    @error('nickname')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                          </div>
+                        </div>
                       </div>
                 </li>
                 <li>
@@ -522,7 +535,7 @@
                                         @include('master-data.select-spiritualgift')
                                     </div>
 
-                                    <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#spiritualgiftModal">
+                                    <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#spiritualGiftModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
                                     @error('spiritual_gifts')
@@ -546,6 +559,14 @@
                                 <div class="select-community col-md-10">
                                     @include('master-data.select-community')
                                 </div>
+                                <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#communityModal">
+                                    <span style="width:25px;height:25px;" data-feather="info"></span>
+                                </button>
+                                @error('communities')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
 
                                 </div>
                             </div>
@@ -572,9 +593,14 @@
                                         @include('master-data.select-personalitytype')
                                     </div>
 
-                                    <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#spiritualgiftModal">
+                                    <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#personalityTypeModal">
                                         <span style="width:25px;height:25px;" data-feather="info"></span>
                                     </button>
+                                    @error('personalitytypes')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
 
                                 </div>
                             </div>
@@ -592,6 +618,14 @@
                                     <div class="select-skilltalent col-md-10">
                                         @include('master-data.select-skilltalent')
                                     </div>
+                                    <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#skillTalentModal">
+                                        <span style="width:25px;height:25px;" data-feather="info"></span>
+                                    </button>
+                                    @error('skillstalents')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
 
                                 </div>
                             </div>
@@ -609,6 +643,15 @@
                                 <div class="select-hobbyactivity col-md-10">
                                     @include('master-data.select-hobbyactivity')
                                 </div>
+
+                                <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#hobbyActivityModal">
+                                    <span style="width:25px;height:25px;" data-feather="info"></span>
+                                </button>
+                                @error('hobbiesactivities')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
 
                                 </div>
                             </div>
@@ -844,7 +887,7 @@
     <form id="formMinistry" method="POST" action="/admin/ministries" class="mb-5">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ministryModalLabel"><span style="width:25px;height:25px;" data-feather="info"></span> Gender
+                <h5 class="modal-title" id="ministryModalLabel"><span style="width:25px;height:25px;" data-feather="info"></span> Ministry
                     <button type="button" onclick="refreshTableMinistry()" class="btn btn-light"><span style="width:20px;height:20px;" data-feather="refresh-ccw"></span></button>
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -857,8 +900,153 @@
                 </div>
             </div>
             <div class="modal-footer border-0">
+                <button type="button" onclick="deleteRow('tableMinistry',active_selRow)" class="btn btn-danger"><span style="width:20px;height:20px;" data-feather="trash"></span> Delete</button>
+                <button type="button" onclick="insertRow('tableMinistry',active_selRow)" class="btn btn-primary"><span style="width:20px;height:20px;" data-feather="plus"></span> Add</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><span style="width:20px;height:20px;" data-feather="x"></span> Close</button>
                 <button type="button" onclick="postMdMinistry()" class="btn btn-dark"><span style="width:20px;height:20px;" data-feather="save"></span> Save</button>
+            </div>
+        </div>
+      </form>
+  </div>
+</div>
+
+<!-- Modal: Table Spiritual Gift -->
+<div class="modal fade" id="spiritualGiftModal" tabindex="-1" role="dialog" aria-labelledby="spiritualGiftModalTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form id="formSpiritualGift" method="POST" action="/admin/spiritualgifts" class="mb-5">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="spiritualGiftModalLabel"><span style="width:25px;height:25px;" data-feather="info"></span> Spiritual Gift
+                    <button type="button" onclick="refreshTableSpiritualGift()" class="btn btn-light"><span style="width:20px;height:20px;" data-feather="refresh-ccw"></span></button>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            @method('post')
+            @csrf
+            <div class="modal-body border-0">
+                <div class="table-responsive table-spiritualgift overflow-x col-lg-12">
+                    @include('master-data.table-spiritualgift')
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" onclick="deleteRow('tableSpiritualGift',active_selRow)" class="btn btn-danger"><span style="width:20px;height:20px;" data-feather="trash"></span> Delete</button>
+                <button type="button" onclick="insertRow('tableSpiritualGift',active_selRow)" class="btn btn-primary"><span style="width:20px;height:20px;" data-feather="plus"></span> Add</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><span style="width:20px;height:20px;" data-feather="x"></span> Close</button>
+                <button type="button" onclick="postMdSpiritualGift()" class="btn btn-dark"><span style="width:20px;height:20px;" data-feather="save"></span> Save</button>
+            </div>
+        </div>
+      </form>
+  </div>
+</div>
+
+<!-- Modal: Table Community -->
+<div class="modal fade" id="communityModal" tabindex="-1" role="dialog" aria-labelledby="communityModalTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form id="formCommunity" method="POST" action="/admin/communities" class="mb-5">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="communityModalLabel"><span style="width:25px;height:25px;" data-feather="info"></span> Community
+                    <button type="button" onclick="refreshTableCommunity()" class="btn btn-light"><span style="width:20px;height:20px;" data-feather="refresh-ccw"></span></button>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            @method('post')
+            @csrf
+            <div class="modal-body border-0">
+                <div class="table-responsive table-community overflow-x col-lg-12">
+                    @include('master-data.table-community')
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" onclick="deleteRow('tableCommunity',active_selRow)" class="btn btn-danger"><span style="width:20px;height:20px;" data-feather="trash"></span> Delete</button>
+                <button type="button" onclick="insertRow('tableCommunity',active_selRow)" class="btn btn-primary"><span style="width:20px;height:20px;" data-feather="plus"></span> Add</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><span style="width:20px;height:20px;" data-feather="x"></span> Close</button>
+                <button type="button" onclick="postMdCommunity()" class="btn btn-dark"><span style="width:20px;height:20px;" data-feather="save"></span> Save</button>
+            </div>
+        </div>
+      </form>
+  </div>
+</div>
+
+<!-- Modal: Table Personality Type -->
+<div class="modal fade" id="personalityTypeModal" tabindex="-1" role="dialog" aria-labelledby="personalityTypeModalTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form id="formPersonalityType" method="POST" action="/admin/personalitytypes" class="mb-5">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="personalityTypeModalLabel"><span style="width:25px;height:25px;" data-feather="info"></span> Personality Type
+                    <button type="button" onclick="refreshTablePersonalityType()" class="btn btn-light"><span style="width:20px;height:20px;" data-feather="refresh-ccw"></span></button>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            @method('post')
+            @csrf
+            <div class="modal-body border-0">
+                <div class="table-responsive table-personalitytype overflow-x col-lg-12">
+                    @include('master-data.table-personalitytype')
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" onclick="deleteRow('tablePersonalityType',active_selRow)" class="btn btn-danger"><span style="width:20px;height:20px;" data-feather="trash"></span> Delete</button>
+                <button type="button" onclick="insertRow('tablePersonalityType',active_selRow)" class="btn btn-primary"><span style="width:20px;height:20px;" data-feather="plus"></span> Add</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><span style="width:20px;height:20px;" data-feather="x"></span> Close</button>
+                <button type="button" onclick="postMdPersonalityType()" class="btn btn-dark"><span style="width:20px;height:20px;" data-feather="save"></span> Save</button>
+            </div>
+        </div>
+      </form>
+  </div>
+</div>
+<!-- Modal: Table Skill Talent -->
+<div class="modal fade" id="skillTalentModal" tabindex="-1" role="dialog" aria-labelledby="skillTalentModalTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form id="formSkillTalent" method="POST" action="/admin/skillstalents" class="mb-5">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="skillTalentModalLabel"><span style="width:25px;height:25px;" data-feather="info"></span> Skill and Talent
+                    <button type="button" onclick="refreshTableSkillTalent()" class="btn btn-light"><span style="width:20px;height:20px;" data-feather="refresh-ccw"></span></button>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            @method('post')
+            @csrf
+            <div class="modal-body border-0">
+                <div class="table-responsive table-skilltalent overflow-x col-lg-12">
+                    @include('master-data.table-skilltalent')
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" onclick="deleteRow('tableSkillTalent',active_selRow)" class="btn btn-danger"><span style="width:20px;height:20px;" data-feather="trash"></span> Delete</button>
+                <button type="button" onclick="insertRow('tableSkillTalent',active_selRow)" class="btn btn-primary"><span style="width:20px;height:20px;" data-feather="plus"></span> Add</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><span style="width:20px;height:20px;" data-feather="x"></span> Close</button>
+                <button type="button" onclick="postMdSkillTalent()" class="btn btn-dark"><span style="width:20px;height:20px;" data-feather="save"></span> Save</button>
+            </div>
+        </div>
+      </form>
+  </div>
+</div>
+<!-- Modal: Table Hobby Activity -->
+<div class="modal fade" id="hobbyActivityModal" tabindex="-1" role="dialog" aria-labelledby="hobbyActivityModalTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form id="formHobbyActivity" method="POST" action="/admin/hobbiesactivities" class="mb-5">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hobbyActivityModalLabel"><span style="width:25px;height:25px;" data-feather="info"></span> Hobby and Activity
+                    <button type="button" onclick="refreshTableHobbyActivity()" class="btn btn-light"><span style="width:20px;height:20px;" data-feather="refresh-ccw"></span></button>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            @method('post')
+            @csrf
+            <div class="modal-body border-0">
+                <div class="table-responsive table-hobbyactivity overflow-x col-lg-12">
+                    @include('master-data.table-hobbyactivity')
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" onclick="deleteRow('tableHobbyActivity',active_selRow)" class="btn btn-danger"><span style="width:20px;height:20px;" data-feather="trash"></span> Delete</button>
+                <button type="button" onclick="insertRow('tableHobbyActivity',active_selRow)" class="btn btn-primary"><span style="width:20px;height:20px;" data-feather="plus"></span> Add</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><span style="width:20px;height:20px;" data-feather="x"></span> Close</button>
+                <button type="button" onclick="postMdHobbyActivity()" class="btn btn-dark"><span style="width:20px;height:20px;" data-feather="save"></span> Save</button>
             </div>
         </div>
       </form>
@@ -1080,6 +1268,10 @@
         initMdEvent("tableFamilyRelation");
         initMdEvent("tableGender");
         initMdEvent("tableMinistry");
+        initMdEvent("tableSpiritualGift");
+        initMdEvent("tablePersonalityType");
+        initMdEvent("tableSkillTalent");
+        initMdEvent("tableHobbyActivity");
 
         $("#selectVillage").on('change', function(){
             var district = $(this).find(":selected")[0].attributes['district'].value;
@@ -1291,6 +1483,113 @@
          });
     }
 
+    function postMdSpiritualGift(){
+        var frmData = $("#formSpiritualGift").serialize()
+        $.ajaxSetup({
+            headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+         });
+
+         $.ajax({
+            type:'POST',
+            data: frmData,
+            dataType: 'json',
+            url:'/admin/spiritualgifts',
+            success:function(data) {
+                if(data==1){
+                    refreshTableSpiritualGift();
+                } else {
+                    var info = data[Object.keys(data)[0]][0];
+                    alert(info);
+                }
+            },
+            error: function (msg) {
+                var errors = msg.responseJSON;
+            }
+         });
+    }
+
+    function postMdPersonalityType(){
+        var frmData = $("#formPersonalityType").serialize()
+        $.ajaxSetup({
+            headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+         });
+
+         $.ajax({
+            type:'POST',
+            data: frmData,
+            dataType: 'json',
+            url:'/admin/personalitytypes',
+            success:function(data) {
+                if(data==1){
+                    refreshTablePersonalityType();
+                } else {
+                    var info = data[Object.keys(data)[0]][0];
+                    alert(info);
+                }
+            },
+            error: function (msg) {
+                var errors = msg.responseJSON;
+            }
+         });
+    }
+    function postMdSkillTalent(){
+        var frmData = $("#formSkillTalent").serialize()
+        $.ajaxSetup({
+            headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+         });
+
+         $.ajax({
+            type:'POST',
+            data: frmData,
+            dataType: 'json',
+            url:'/admin/skillstalents',
+            success:function(data) {
+                if(data==1){
+                    refreshTableSkillTalent();
+                } else {
+                    var info = data[Object.keys(data)[0]][0];
+                    alert(info);
+                }
+            },
+            error: function (msg) {
+                var errors = msg.responseJSON;
+            }
+         });
+    }
+
+    function postMdHobbyActivity(){
+        var frmData = $("#formHobbyActivity").serialize()
+        $.ajaxSetup({
+            headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+         });
+
+         $.ajax({
+            type:'POST',
+            data: frmData,
+            dataType: 'json',
+            url:'/admin/hobbiesactivities',
+            success:function(data) {
+                if(data==1){
+                    refreshTableHobbyActivity();
+                } else {
+                    var info = data[Object.keys(data)[0]][0];
+                    alert(info);
+                }
+            },
+            error: function (msg) {
+                var errors = msg.responseJSON;
+            }
+         });
+    }
+
     function postMdAdminDiv(){
         var frmData = $("#formAdminDiv").serialize()
         $.ajaxSetup({
@@ -1370,19 +1669,58 @@
             initMdEvent("tableMinistry");
         });
 
+//        $('#selectMinistry').select2("destroy");
+//        return false;
         $('div.select-ministry').load('/admin/select-ministries', function() {
+            refreshSelect2('#selectMinistry');
         });
-
       }
 
-      function refreshTableSpritualGift() {
-        $('div.table-ministry').fadeOut();
-        $('div.table-ministry').load('/admin/table-ministries', function() {
-            $('div.table-ministry').fadeIn();
+      function refreshTableSpiritualGift() {
+        $('div.table-spiritualgift').fadeOut();
+        $('div.table-spiritualgift').load('/admin/table-spiritualgifts', function() {
+            $('div.table-spiritualgift').fadeIn();
             initMdEvent("tableSpiritualGift");
         });
 
-        $('div.select-ministry').load('/admin/select-ministries', function() {
+        $('div.select-spiritualgift').load('/admin/select-spiritualgifts', function() {
+            refreshSelect2('#selectSpiritualGift');
+        });
+      }
+
+      function refreshTablePersonalityType() {
+        $('div.table-personalitytype').fadeOut();
+        $('div.table-personalitytype').load('/admin/table-personalitytypes', function() {
+            $('div.table-personalitytype').fadeIn();
+            initMdEvent("tablePersonalityType");
+        });
+
+        $('div.select-personalitytype').load('/admin/select-personalitytypes', function() {
+            refreshSelect2('#selectPersonalityType');
+        });
+      }
+
+      function refreshTableSkillTalent() {
+        $('div.table-skilltalent').fadeOut();
+        $('div.table-skilltalent').load('/admin/table-skillstalents', function() {
+            $('div.table-skilltalent').fadeIn();
+            initMdEvent("tableSkillTalent");
+        });
+
+        $('div.select-skilltalent').load('/admin/select-skillstalents', function() {
+            refreshSelect2('#selectSkillTalent');
+        });
+      }
+
+      function refreshTableHobbyActivity() {
+        $('div.table-hobbyactivity').fadeOut();
+        $('div.table-hobbyactivity').load('/admin/table-hobbiesactivities', function() {
+            $('div.table-hobbyactivity').fadeIn();
+            initMdEvent("tableHobbyActivity");
+        });
+
+        $('div.select-hobbyactivity').load('/admin/select-hobbiesactivities', function() {
+            refreshSelect2('#selectHobbyActivity');
         });
       }
 
@@ -1542,6 +1880,18 @@
             }
         });
     });
+
+    function refreshSelect2(select2Id) {
+        var select2elm = document.querySelector(select2Id);
+        var placeHolder = select2elm.getAttribute('aria-placeholder');
+        if(select2Id){
+            $(select2Id).select2({
+                containerCss : {"display":"block"},
+                placeholder: placeHolder,
+                allowClear: true
+            });
+        }
+    }
 </script>
 @endsection
 

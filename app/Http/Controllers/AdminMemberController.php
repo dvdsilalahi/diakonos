@@ -39,7 +39,6 @@ class AdminMemberController extends Controller
         return view('dashboard.members.index',[
             'members' => Member::where('is_active',1)->get(),
         ]);
-
     }
 
     public function family(Member $member)
@@ -241,4 +240,15 @@ class AdminMemberController extends Controller
         return ['data' => Member::all()];
     }
 
+    public function select()
+    {
+        if (! Gate::allows('admin')) {
+            abort(403, 'You are not authorized.');
+        }
+
+        return view('dashboard.member.select-member',[
+//            'members' => Member::whereNotNull('ministries')->get(),
+            'members' => Member::all(),
+        ]);
+    }
 }

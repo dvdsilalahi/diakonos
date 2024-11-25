@@ -21,6 +21,7 @@ class MemberFactory extends Factory
             'member_code' => $this->faker->unique()->numberBetween(1000000000,9999999999),
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
+            'nickname' => $this->faker->firstName,
             'email' => $this->faker->unique()->safeEmail,
             'phone_number' => $this->faker->phoneNumber,
             'place_of_birth' => $this->faker->city,

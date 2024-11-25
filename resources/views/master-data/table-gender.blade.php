@@ -5,7 +5,7 @@
                 <strong>TITLE</strong>
             </td>
             <td width="80%">
-                <strong>DESCRIPTIONx</strong>
+                <strong>DESCRIPTION</strong>
             </td>
             <td style="display: none;">
                 <strong>ID</strong>

@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->string('member_code', length:16)->nullable();
             $table->string('uuid')->default("");
+            $table->string('member_code', length:16)->nullable();
             $table->string('first_name', length:50)->nullable();
             $table->string('last_name', length:50)->nullable();
+            $table->string('nickname', length:50)->nullable();
             $table->string('email', length:100)->nullable();
             $table->string('phone_number', length:20)->nullable();
             $table->string('place_of_birth', length:50)->nullable();

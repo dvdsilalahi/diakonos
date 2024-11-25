@@ -18,7 +18,7 @@ class MdCommunityAreaFactory extends Factory
     {
         return [
             'uuid' => $this->faker->unique()->sha1(),
-            'title' => strtoupper($this->faker->unique()->randomElement(['Elementary School', 'Junior High School', 'Senior High School', 'Bachelor Degree', 'Master Degree', 'Doctoral Degree'])),
+            'title' => strtoupper($this->faker->unique()->randomElement(['Grogol', 'Cililitan', 'Tanjung Priok', 'Cibitung', 'Sunter', 'Klender'])),
         ];
     }
 }

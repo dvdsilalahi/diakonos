@@ -1,4 +1,4 @@
-<table class="table table-bordered table-sm" id="tableSpiritualGift">
+<table class="table table-bordered table-sm" id="tablePersonalityType">
     <thead style="background-color:black;color:white;">
         <tr>
             <td width="20%">
@@ -13,13 +13,13 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($spiritualgifts as $spiritualgift)
+        @foreach ($personalitytypes as $personalitytype)
         <tr>
             <td>
-                <input style="text-transform:uppercase" class="input-borderless" value="{{ $spiritualgift->title }}" name="title[]" type="text" readonly>
+                <input style="text-transform:uppercase" class="input-borderless" value="{{ $personalitytype->title }}" name="title[]" type="text" readonly>
             </td>
             <td>
-                <input style="width: 100%;" class="input-borderless" value="{{ $spiritualgift->description }}" name="description[]" type="text" readonly>
+                <input style="width: 100%;" class="input-borderless" value="{{ $personalitytype->description }}" name="description[]" type="text" readonly>
             </td>
             <td style="display: none;">
                 <input class="input-borderless" value="{{ $personalitytype->id }}" name="id[]" type="hidden" readonly>

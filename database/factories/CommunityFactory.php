@@ -23,7 +23,9 @@ class CommunityFactory extends Factory
             'area' => $this->faker->unique()->city(),
             'leaders' => $this->faker->randomElement([json_encode(['leaders' => ['Davidy Silalahi', 'Moses Ramoti']]),json_encode(['leaders' => ['Josephine Dame', 'Noah Marchiano']])]),
             'address' => $this->faker->address(),
-            'notes' => $this->faker->sentence()
-         ];
+            'description' => $this->faker->sentence(),
+            'social_media' => $this->faker->url(),
+            'gmap_link' => $this->faker->latitude(-6.225014,-6.1676). ',' . $this->faker->longitude(106.7673,106.900447),
+           ];
     }
 }

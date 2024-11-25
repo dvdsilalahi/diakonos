@@ -2,26 +2,33 @@
 
 namespace Database\Seeders;
 
-use App\Models\Community;
-use App\Models\MdAdministrativeDivision;
-use App\Models\MdCommunityCategory;
-use App\Models\MdHobbyActivity;
-use App\Models\MdMinistry;
-use App\Models\MdPersonalityType;
-use App\Models\MdSkillTalent;
-use App\Models\MdSpiritualGift;
+use App\Models\MdCOA;
+use App\Models\MdEventDuty;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Event;
 use App\Models\Member;
 use App\Models\Category;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\MdGender;
+use App\Models\Community;
+use App\Models\MdMinistry;
 use App\Models\MdBloodType;
 use App\Models\MdEducation;
 use App\Models\MdProfession;
 use App\Models\MdCitizenship;
+use App\Models\MdSkillTalent;
+use App\Models\MdCommunityArea;
+use App\Models\MdEventCategory;
+use App\Models\MdEventTemplate;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\MdHobbyActivity;
+use App\Models\MdSpiritualGift;
 use Illuminate\Database\Seeder;
 use App\Models\MdFamilyRelation;
+use App\Models\MdPersonalityType;
+use App\Models\MdCommunitySegment;
+use App\Models\MdCommunityCategory;
+use App\Models\MdAdministrativeDivision;
 
 class DatabaseSeeder extends Seeder
 {
@@ -90,6 +97,22 @@ class DatabaseSeeder extends Seeder
         MdSkillTalent::factory(4)->create();
 
         MdHobbyActivity::factory(3)->create();
+
+        MdCommunityCategory::factory(3)->create();
+
+        MdCommunitySegment::factory(3)->create();
+
+        MdCommunityArea::factory(3)->create();
+
+        MdEventCategory::factory(2)->create();
+
+        MdEventTemplate::factory(2)->create();
+
+        MdCOA::factory(2)->create();
+
+        Event::factory(3)->create();
+
+        MdEventDuty::factory(4)->create();
 
     }
 }

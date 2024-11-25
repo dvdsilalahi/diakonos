@@ -14,13 +14,29 @@ class Community extends Model
     // Define the fillable columns (columns that can be mass-assigned)
     protected $fillable = [
         'uuid',
+        'name',
         'category',
-        'segmen',
+        'segment',
         'area',
         'leaders',
         'address',
+        'description',
+        'social_media',
         'gmap_link',
-    ];
+        'is_active,'
+      ];
+
+      public function communityCategory(){
+        return $this->belongsTo(MdCommunityCategory::class, 'category');
+     }
+
+     public function communitySegment(){
+        return $this->belongsTo(MdCommunitySegment::class, 'segment');
+     }
+
+     public function communityArea(){
+        return $this->belongsTo(MdCommunityArea::class, 'area');
+     }
 
     public function getRouteKeyName(){
         return 'uuid';

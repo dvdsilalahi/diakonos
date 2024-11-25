@@ -18,6 +18,7 @@ class Member extends Model
         'member_code',
         'first_name',
         'last_name',
+        'nickname',
         'uuid',
         'email',
         'phone_number',

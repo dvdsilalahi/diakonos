@@ -11,7 +11,7 @@
     </div>
 @endif
 
-Toggle column visibility: <div id="toggleMembersColumns"></div>
+Toggle column visibility: <div id="toggleMemberColumns"></div>
 
 <div class="table-responsive col-lg-12">
     <table id="memberList" class="display table table-striped table-sm">
@@ -77,9 +77,9 @@ Toggle column visibility: <div id="toggleMembersColumns"></div>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $member->first_name . ' ' . $member->last_name}}</td>
             <td class="col-sm-4">
-                <a href="/dashboard/members/{{ $member->uuid }}" class="badge bg-primary" data-bs-toggle="tooltip" title="View"><span data-feather="eye"></span></a>
-                <a href="/dashboard/family/{{ $member->uuid }}" class="badge bg-info"><span data-feather="heart"></span></a>
-                <a href="/dashboard/members/{{ $member->uuid }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
+                <a href="/admin/members/{{ $member->uuid }}" class="badge bg-primary" data-bs-toggle="tooltip" title="View"><span data-feather="eye"></span></a>
+                <a href="/admin/family/{{ $member->uuid }}" class="badge bg-info"><span data-feather="heart"></span></a>
+                <a href="/admin/members/{{ $member->uuid }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
                 <button type="button" class="badge bg-dark border-0" data-bs-uuid="{{ $member->uuid }}" data-bs-name="{{ $member->first_name . ' ' . $member->last_name}}" data-bs-toggle="modal" data-bs-target="#archiveModal">
                     <span data-feather="archive"></span>
                 </button>
@@ -105,7 +105,7 @@ Toggle column visibility: <div id="toggleMembersColumns"></div>
           'Member "" will be archived/inactivated. Are you sure?'
         </div>
         <div class="modal-footer">
-            <form action="/dashboard/members/archive/" method="POST" class="d-inline modal-form">
+            <form action="/admin/members/archive/" method="POST" class="d-inline modal-form">
                 @method('post')
                 @csrf
                 <input type="hidden" name="is_active" value="0">
@@ -142,11 +142,11 @@ Toggle column visibility: <div id="toggleMembersColumns"></div>
 
 
   <script>
-    var table_postCategories = null;
+    var table_members = null;
     var arrColumns = [];
 
     $(document).ready(function() {
-        table_postCategories = new DataTable('#memberList', {
+        table_members = new DataTable('#memberList', {
             "dom":  "<'row'<'col-sm-12'B>>" +
                     "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
                     "r<'row'<'col-sm-12't>>" +
@@ -155,7 +155,7 @@ Toggle column visibility: <div id="toggleMembersColumns"></div>
                 {
                     text: '<i class="bi bi-plus-square h6"></i>',
                     action: function ( e, dt, node, config ) {
-                        window.location.href = "/dashboard/members/create";
+                        window.location.href = "/admin/members/create";
                     }
                 },
                 {
@@ -209,9 +209,9 @@ Toggle column visibility: <div id="toggleMembersColumns"></div>
                     var ncolumns = $('#memberList').DataTable().columns().nodes().length;
                     var toggleHTML = "";
                     for(var i = 0; i < ncolumns; i++){
-                        var columnTitle = table_postCategories.column(i).header().innerHTML;
+                        var columnTitle = table_members.column(i).header().innerHTML;
                         var columnStyle = "";
-                        if (table_postCategories.column(i).visible()){
+                        if (table_members.column(i).visible()){
                             columnStyle = "color: #0d6efd;";
                         } else {
                             columnStyle = "color: red;";
@@ -221,7 +221,7 @@ Toggle column visibility: <div id="toggleMembersColumns"></div>
                         } else if(i>0) {
                             toggleHTML = toggleHTML + ' - <a role="button" class="toggle-vis" data-column="'+i+'" style="'+columnStyle+'">'+columnTitle+'</a>';
                         }
-                        document.getElementById("toggleMembersColumns").innerHTML = toggleHTML;
+                        document.getElementById("toggleMemberColumns").innerHTML = toggleHTML;
                     }
 
                     document.querySelectorAll('a.toggle-vis').forEach((el) => {
@@ -229,7 +229,7 @@ Toggle column visibility: <div id="toggleMembersColumns"></div>
                             e.preventDefault();
 
                             let columnIdx = e.target.getAttribute('data-column');
-                            let column = table_postCategories.column(columnIdx);
+                            let column = table_members.column(columnIdx);
 
                             // Toggle the visibility
                             column.visible(!column.visible());
@@ -240,13 +240,12 @@ Toggle column visibility: <div id="toggleMembersColumns"></div>
                             }
                         });
                     });
-
                     return json.data;
                 }
             },
             "columnDefs": [
                 {title: '#', targets: 0, width: '5%', visible:true},
-                {title: 'Action', targets: 1, width: '10%', visible:true},
+                {title: 'Action', targets: 1, width: '15%', visible:true},
                 {title: 'Member Code', targets: 2, width: '10%', visible:false},
                 {title: 'First Name', targets: 3, width: '10%', visible:true},
                 {title: 'Last Name', targets: 4, width: '10%', visible:true},
@@ -274,15 +273,15 @@ Toggle column visibility: <div id="toggleMembersColumns"></div>
                 },
                 { "data": "action",
                     render: function (data, type, row, meta) {
-                        var html = '<a href="/dashboard/categories/'+row['slug']+'" class="badge bg-info"><i data-feather="eye"></i></a>' +
-                        '<a href="/dashboard/categories/'+row['slug']+'/edit" class="badge bg-warning"><span data-feather="edit"></span></a>' +
-                        '<form action="/dashboard/categories/'+row['slug']+'" method="POST" class="d-inline">' +
-                        '    @method("delete") ' +
-                        '    @csrf  '+
-                        '   <button class="badge bg-danger border-0" onclick="return confirm(&#39;Are you sure?&#39;)">' +
-                        '   <span data-feather="x-circle"></span>' +
-                        '   </button>' +
-                        '</form>';
+                        var html = '<a href="/admin/members/'+row['uuid']+'" class="badge bg-primary" data-bs-toggle="tooltip" title="View"><span style="width:10px;height:10px;" data-feather="eye"></span></a> ' +
+                        '<a href="/admin/family/'+row['uuid']+'" class="badge bg-info"><span style="width:10px;height:10px;" data-feather="heart"></span></a> ' +
+                        '<a href="/admin/members/'+row['uuid']+'/edit" class="badge bg-warning"><span style="width:10px;height:10px;" data-feather="edit"></span></a> ' +
+                        '<button type="button" class="badge bg-dark border-0" data-bs-uuid="'+row['uuid']+'" data-bs-name="'+row['first_name'] + ' ' + row['last_name']+'" data-bs-toggle="modal" data-bs-target="#archiveModal"> ' +
+                        '    <span style="width:10px;height:10px;" data-feather="archive"></span>' +
+                        '</button> ' +
+                        '<button type="button" class="badge bg-danger border-0" data-bs-uuid="'+row['uuid']+'" data-bs-name="'+row['first_name'] + ' ' + row['last_name']+'" data-bs-toggle="modal" data-bs-target="#confirmModal">' +
+                        '    <span style="width:10px;height:10px;" data-feather="x-circle"></span>' +
+                        '</button> ';
                         return html;
                     }
                 },
@@ -338,7 +337,7 @@ Toggle column visibility: <div id="toggleMembersColumns"></div>
         var modalBody = archiveModal.querySelector('.modal-body')
         var modalForm = archiveModal.querySelector('.modal-form')
         modalBody.textContent = 'Member "' + member_name + '" will be archived. Are you sure?';
-        modalForm.action = "/dashboard/members/"+member_uuid+"/archive";
+        modalForm.action = "/admin/members/"+member_uuid+"/archive";
     });
 
     var confirmModal = document.getElementById('confirmModal')
@@ -352,7 +351,7 @@ Toggle column visibility: <div id="toggleMembersColumns"></div>
         var modalBody = confirmModal.querySelector('.modal-body')
         var modalForm = confirmModal.querySelector('.modal-form')
         modalBody.textContent = 'Member "' + member_name + '" will be removed permanently. Are you sure?';
-        modalForm.action = "/dashboard/members/" + member_uuid;
+        modalForm.action = "/admin/members/" + member_uuid;
     });
   </script>
 

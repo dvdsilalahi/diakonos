@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use App\Models\MdCommunitySegment;
-use App\Http\Requests\StoreMdCommunitySegmentRequest;
-use App\Http\Requests\UpdateMdCommunitySegmentRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 
 class MdCommunitySegmentController extends Controller
 {
@@ -28,9 +28,76 @@ class MdCommunitySegmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMdCommunitySegmentRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            "title"    => "required|array",
+            "title.*"  => "required|string|max:50",
+            "description"    => "array",
+            "description.*"  => "nullable|string|max:256",
+            "id"    => "array",
+            "id.*"  => "nullable|integer",
+        ]);
+        if($validator->passes()){
+            $validatedData = $validator->getData();
+
+            if(count($validatedData['title']) === count(array_unique(array_map("strtoupper",$validatedData['title'])))){
+                if(count($validatedData['title'])>0){
+
+                    $segments = MdCommunitySegment::all();
+                    foreach($segments as $segment){
+                        if(!in_array($segment->id, $validatedData['id'])){
+                            MdCommunitySegment::destroy($segment->id);
+                        }
+                    }
+
+                    for ($x = 0; $x < count($validatedData['title']); $x++)
+                    {
+                        if(array_key_exists($x, $validatedData['id'])){
+                            $data['id'] = $validatedData['id'][$x];
+                            $data['title'] = strtoupper($validatedData['title'][$x]);
+                            $data['description'] = $validatedData['description'][$x];
+                            if(!MdCommunitySegment::select('uuid')->where('id',$data['id'])->get()){
+                                $data['uuid'] = sha1($data['title']);
+                            }
+                            MdCommunitySegment::where('id',$data['id'])->update($data);
+                        }
+                    }
+                    for ($x = 0; $x < count($validatedData['title']); $x++)
+                    {
+                        if(!array_key_exists($x, $validatedData['id'])){
+                            $data['title'] = strtoupper($validatedData['title'][$x]);
+                            $data['description'] = $validatedData['description'][$x];
+                            $data['uuid'] = sha1($data['title']);
+                            MdCommunitySegment::create($data);
+                        }
+                    }
+
+                }
+                return true;
+            } else {
+                $ndup = count($validatedData['title']) - count(array_unique(array_map("strtoupper",$validatedData['title'])));
+                return json_encode(['title'=>["There is $ndup duplicate(s) in the 'title' column"]]);
+            }
+
+        } else {
+            return $validator->getMessageBag();
+        }
+
+
+        if(count($request->title)>0){
+            for ($x = 0; $x < count($request->title); $x++)
+            {
+                $segment = new MdCommunitySegment();
+                if(array_key_exists($x, $request->id)){
+                    $segment->id = $request->id[$x];
+                }
+                $segment->title = strtoupper($request->title[$x]);
+                $segment->description = $request->description[$x];
+                $segment->save();
+            }
+        }
+        return true;
     }
 
     /**
@@ -52,7 +119,7 @@ class MdCommunitySegmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMdCommunitySegmentRequest $request, MdCommunitySegment $mdCommunitySegment)
+    public function update(Request $request, MdCommunitySegment $mdCommunitySegment)
     {
         //
     }
@@ -63,5 +130,37 @@ class MdCommunitySegmentController extends Controller
     public function destroy(MdCommunitySegment $mdCommunitySegment)
     {
         //
+    }
+
+    public function table()
+    {
+        if (! Gate::allows('admin')) {
+            abort(403, 'You are not authorized.');
+        }
+        return view('master-data.table-community-segment',[
+            'segments' => MdCommunitySegment::orderBy('title', 'ASC')->get(),
+        ]);
+    }
+
+    public function select()
+    {
+        if (! Gate::allows('admin')) {
+            abort(403, 'You are not authorized.');
+        }
+
+        return view('master-data.select-community-segment',[
+            'segments' => MdCommunitySegment::orderBy('title', 'ASC')->get(),
+        ]);
+    }
+
+    public function selectSegmentAttendance()
+    {
+        if (! Gate::allows('admin')) {
+            abort(403, 'You are not authorized.');
+        }
+
+        return view('master-data.select-segment-attendance',[
+            'segments' => MdCommunitySegment::orderBy('title', 'ASC')->get(),
+        ]);
     }
 }

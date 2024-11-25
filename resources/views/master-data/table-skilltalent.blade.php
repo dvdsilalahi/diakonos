@@ -1,4 +1,4 @@
-<table class="table table-bordered table-sm" id="tableSpiritualGift">
+<table class="table table-bordered table-sm" id="tableSkillTalent">
     <thead style="background-color:black;color:white;">
         <tr>
             <td width="20%">
@@ -13,7 +13,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($killstalents as $skilltalent)
+        @foreach ($skillstalents as $skilltalent)
         <tr>
             <td>
                 <input style="text-transform:uppercase" class="input-borderless" value="{{ $skilltalent->title }}" name="title[]" type="text" readonly>

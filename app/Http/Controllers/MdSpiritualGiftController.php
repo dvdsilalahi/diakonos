@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use App\Models\MdSpiritualGift;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 
 class MdSpiritualGiftController extends Controller
 {
@@ -30,15 +30,71 @@ class MdSpiritualGiftController extends Controller
      */
     public function store(Request $request)
     {
-        MdSpiritualGift::truncate();
+        $validator = Validator::make($request->all(), [
+            "title"    => "required|array",
+            "title.*"  => "required|string|max:50",
+            "description"    => "array",
+            "description.*"  => "nullable|string|max:256",
+            "id"    => "array",
+            "id.*"  => "nullable|integer",
+        ]);
+        if($validator->passes()){
+            $validatedData = $validator->getData();
+
+            if(count($validatedData['title']) === count(array_unique(array_map("strtoupper",$validatedData['title'])))){
+                if(count($validatedData['title'])>0){
+
+                    $spiritualgifts = MdSpiritualGift::all();
+                    foreach($spiritualgifts as $spiritualgift){
+                        if(!in_array($spiritualgift->id, $validatedData['id'])){
+                            MdSpiritualGift::destroy($spiritualgift->id);
+                        }
+                    }
+
+                    for ($x = 0; $x < count($validatedData['title']); $x++)
+                    {
+                        if(array_key_exists($x, $validatedData['id'])){
+                            $data['id'] = $validatedData['id'][$x];
+                            $data['title'] = strtoupper($validatedData['title'][$x]);
+                            $data['description'] = $validatedData['description'][$x];
+                            if(!MdSpiritualGift::select('uuid')->where('id',$data['id'])->get()){
+                                $data['uuid'] = sha1($data['title']);
+                            }
+                            MdSpiritualGift::where('id',$data['id'])->update($data);
+                        }
+                    }
+                    for ($x = 0; $x < count($validatedData['title']); $x++)
+                    {
+                        if(!array_key_exists($x, $validatedData['id'])){
+                            $data['title'] = strtoupper($validatedData['title'][$x]);
+                            $data['description'] = $validatedData['description'][$x];
+                            $data['uuid'] = sha1($data['title']);
+                            MdSpiritualGift::create($data);
+                        }
+                    }
+
+                }
+                return true;
+            } else {
+                $ndup = count($validatedData['title']) - count(array_unique(array_map("strtoupper",$validatedData['title'])));
+                return json_encode(['title'=>["There is $ndup duplicate(s) in the 'title' column"]]);
+            }
+
+        } else {
+            return $validator->getMessageBag();
+        }
+
 
         if(count($request->title)>0){
             for ($x = 0; $x < count($request->title); $x++)
             {
-                $spritualgift = new MdSpiritualGift();
-                $spritualgift->title = strtoupper($request->title[$x]);
-                $spritualgift->description = $request->description[$x];
-                $spritualgift->save();
+                $spiritualgift = new MdSpiritualGift();
+                if(array_key_exists($x, $request->id)){
+                    $spiritualgift->id = $request->id[$x];
+                }
+                $spiritualgift->title = strtoupper($request->title[$x]);
+                $spiritualgift->description = $request->description[$x];
+                $spiritualgift->save();
             }
         }
         return true;

@@ -17,7 +17,10 @@ class MdCOAFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'uuid' => $this->faker->unique()->sha1(),
+            'number' => $this->faker->randomElement(['1.1', '1.2', '1.3',]),
+            'account_name' => $this->faker->randomElement(['Offerings', 'Funds', 'Socials']),
+            'account_type' => $this->faker->randomElement(['Incomes',]),
         ];
     }
 }

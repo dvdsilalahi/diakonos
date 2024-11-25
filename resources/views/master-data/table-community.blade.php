@@ -1,4 +1,4 @@
-<table class="table table-bordered table-sm" id="tableBloodType">
+<table class="table table-bordered table-sm" id="tableCommunity">
     <thead style="background-color:black;color:white;">
         <tr>
             <td width="20%">

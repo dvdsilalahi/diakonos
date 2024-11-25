@@ -15,8 +15,24 @@
 
 <!-- Trix Editor JS -->
 <script src="/js/trix.js"></script>
-{{--  <!-- Tagify JS -->
-<script src="/js/tagify.js"></script>
-<script src="/js/tagify.polyfills.min.js"></script>
 
+{{--  <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js'></script>
   --}}
+{{--  <!-- Calendar JS -->
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.2.0/main.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.2.0/main.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.2.0/main.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js'></script>
+<script src="/js/event-calendar/script.js"></script>
+  --}}
+{{--    <!-- Sidebar JS -->
+  <script src="/js/sidebar-script.js"></script>
+  --}}
+
+
+<!--Vkurko Calendar -->
+<script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@3.2.2/event-calendar.min.js"></script>
+
+<!--Context Menu-->
+<script src="/js/context.js"></script>

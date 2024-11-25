@@ -17,7 +17,8 @@ class MdCommunitySegmentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'uuid' => $this->faker->unique()->sha1(),
+            'title' => strtoupper($this->faker->unique()->randomElement(['Kids', 'Youth', 'Elderly', 'Family', 'Singles'])),
         ];
     }
 }
