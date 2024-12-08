@@ -110,7 +110,7 @@ class DatabaseSeeder extends Seeder
 
         MdCOA::factory(2)->create();
 
-        Event::factory(3)->create();
+        Event::factory(1)->create();
 
         MdEventDuty::factory(4)->create();
 

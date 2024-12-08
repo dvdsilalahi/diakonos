@@ -88,9 +88,25 @@ class AdminCommunityController extends Controller
      */
     public function show(Community $community)
     {
-        return view('admin.communities.show',[
-            'community' => $community
-        ]);
+        $community = Community::where('uuid',$community->uuid)->with(['communityCategory','communitySegment','communityArea'])->get()[0];
+        $leaders = json_decode($community['leaders'], true)['items'];
+        $leaders_att = "";
+        for($j=0;$j<count($leaders);$j++){
+            $leader = Member::where('id',$leaders[$j])->first();
+            $leaders_att .= $leader->first_name . ' ' . $leader->last_name . ",<br>";
+        }
+        $community['leaders'] = rtrim($leaders_att, ',<br>');
+
+        $social_media = json_decode($community['social_media'], true)['items'];
+        $social_media_att = "";
+        for($j=0;$j<count($social_media);$j++){
+            $social_media_att .= $social_media[$j] . ",<br>";
+        }
+        $community['social_media'] = rtrim($social_media_att, ',<br>');
+
+       return view('admin.communities.show',[
+           'community' => $community,
+       ]);
     }
 
     /**
@@ -98,10 +114,11 @@ class AdminCommunityController extends Controller
      */
     public function edit(Community $community)
     {
+
          $community->leaders = json_decode($community->leaders, true);
          $community->social_media = json_decode($community->social_media, true);
-
-//        dd($community);
+//         $community->social_media = $community->social_media['items'];
+  //      dd($community);
         //
         return view('admin.communities.edit',[
             'community' => $community,
@@ -115,94 +132,54 @@ class AdminCommunityController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Member $member)
+    public function update(Request $request, string $id)
     {
         $rules = [
-            'member_code' => 'max:16|nullable',
-            'first_name' => 'required|max:50',
-            'last_name' => 'max:50|nullable',
-            'pic' => 'image|file|max:1024',
-            "email"=> "email:dns|nullable",
-            "phone_number"=> "nullable",
-            "place_of_birth"=> "nullable",
-            "date_of_birth"=> "nullable",
-            "address"=> "nullable",
-            "nin"=> "nullable",
-            "fr_no"=> "nullable",
-            "gender"=> "nullable",
-            "fam_relation"=> "nullable",
-            "education"=> "nullable",
-            "profession"=> "nullable",
-            "citizenship"=> "nullable",
-            "father_name"=> "nullable",
-            "mother_name"=> "nullable",
+            "category"  => "required|integer",
+            "segment"  => "required|integer",
+            "area"  => "required|integer",
+            'name' => 'required|max:256',
+            "leaders"    => "array",
+            "leaders.*"  => "nullable|integer",
+            "description"  => "nullable|string|max:256",
+            "address"  => "required|string|max:256",
+            "social_media"    => "array",
+            "social_media.*"  => "nullable|string|max:256",
+            "gmap_link"  => "nullable|string|max:256",
         ];
 
         $validatedData = $request->validate($rules);
 
-        if(!$request->member_code){
-            $validatedData['member_code'] = strval(rand(1000000000,9999999999));
-        }
+        $validatedData['leaders'] = json_encode(array('items' => $request->leaders));
+        $validatedData['social_media'] = json_encode(array('items' => $request->social_media));
 
-        if($request->file('pic')){
-            if($request->oldPic) {
-                Storage::delete($request->oldPic);
-            }
-            $validatedData['pic'] = $request->file('pic')->store('member-pic');
-        }
+        // Create a new member record
+        Community::where('uuid', $id)->update($validatedData);
 
-        Member::where('uuid',$member->uuid)->update($validatedData);
-
-        return redirect('/dashboard/communities')->with('success','Member '.$member->first_name.' '.$member->last_name.' has been updated!');
-
+        return redirect()->route('communities.index')
+            ->with('success', 'Community '.$request->name.' is added successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Member $member)
+    public function destroy(Community $community)
     {
-        if($member->pic) {
-            Storage::delete($member->pic);
-        }
+        $community->delete();
 
-        $member->delete();
-
-        $contains = Str::contains(URL::previous(), 'family');
-
-        if($contains){
-            $rmn_member = Member::where('fr_no', $member->fr_no)->first();
-            if($rmn_member) {
-                return redirect('/dashboard/family/'.$rmn_member->uuid)->with('success','Member '.$member->first_name.' '.$member->last_name.' has been deleted!');
-            } else {
-                return redirect()->back()->with('success','Member '.$member->first_name.' '.$member->last_name.' has been deleted!');
-            }
-        } else {
-            return redirect()->back()->with('success','Member '.$member->first_name.' '.$member->last_name.' has been deleted!');
-        }
+        return redirect()->back()->with('success','Member '.$community->name.' has been deleted!');
     }
 
-    public function archive(Request $request, Member $member){
-        $member->is_active = $request->is_active;
-        $member->save();
+    public function archive(Request $request, Community $community){
+        $community->is_active = $request->is_active;
+        $community->save();
 
-        $contains = Str::contains(URL::previous(), 'family');
-
-        if($contains){
-            $rmn_member = Member::where('fr_no', $member->fr_no)->first();
-            if($rmn_member) {
-                return redirect('/dashboard/family/'.$rmn_member->uuid)->with('success','Member '.$member->first_name.' '.$member->last_name.' has been archived!');
-            } else {
-                return redirect()->back()->with('success','Member '.$member->first_name.' '.$member->last_name.' has been archived!');
-            }
-        } else {
-            return redirect()->back()->with('success','Member '.$member->first_name.' '.$member->last_name.' has been archived!');
-        }
+        return redirect()->back()->with('success','Community '.$community->name.' has been archived!');
     }
 
     public function list()
     {
-        $data = Community::with(['communityCategory','communitySegment','communityArea'])->get()->toArray();
+        $data = Community::with(['communityCategory','communitySegment','communityArea'])->where('is_active', 1)->get()->toArray();
 
         for($i=0;$i<count($data);$i++){
             if(isset($data[$i]['community_category'])){

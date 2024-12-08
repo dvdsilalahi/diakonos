@@ -4,14 +4,15 @@
 <div class="row my-3">
     <div class="col-lg-12">
         <a type="button" href="{{ url()->previous() }}" class="btn btn-link mb-3" style="text-decoration: none;"><i data-feather="arrow-left" style="width: 20px; height: 20px;"></i>Back</a>
-        <h2 class="h2 px-3">Create New Community</h2>
+        <h6 class="px-3"> Edit Community </h6>
+        <h2 class="h2 px-3"> {{ $community->name }} </h2>
     </div>
 </div>
 
 <div class="row my-3">
-    <form method="POST" action="/admin/communities" class="mb-5" enctype="multipart/form-data">
+    <form method="POST" action="/admin/communities/{{ $community->uuid }}" class="mb-5" enctype="multipart/form-data">
+        @method('put')
         @csrf
-
     <div class="flex-shrink-0 p-3">
         <ul class="list-unstyled ps-0">
         <li class="mb-1 d-grid gap-2">
@@ -90,7 +91,7 @@
                             <div class="card-body p-2">
                               <label for="name" class="form-label"><h6>Community Name</h6></label>
                               <div class="d-flex">
-                                <input type="text" maxlength="50" size="10" class="form-control @error('name') is-invalid @enderror" id="name" name="name"  autofocus value="{{ old('name') }}" >
+                                <input type="text" maxlength="50" size="10" class="form-control @error('name') is-invalid @enderror" id="name" name="name"  autofocus value="{{ old('name', $community->name) }}" >
                                 @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -128,7 +129,7 @@
                             <div class="card-body p-2">
                                 <label for="description" class="form-label"><h6>Description</h6></label>
                                 <div class="d-flex">
-                                    <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" style="height: 100px" value="{{ old('description') }}"></textarea>
+                                    <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" style="height: 100px">{{ old('description', $community->description) }}</textarea>
                                     @error('description')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -141,7 +142,7 @@
                             <div class="card-body p-2">
                                 <label for="address" class="form-label"><h6>Address</h6></label>
                                 <div class="d-flex">
-                                    <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address" style="height: 100px" value="{{ old('address') }}"></textarea>
+                                    <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address" style="height: 100px">{{ old('address', $community->address) }}</textarea>
                                     @error('address')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -159,8 +160,10 @@
                                 <label for="social_media" class="form-label"><h6>Social Media</h6></label>
                                 <div class="d-flex">
                                     <select multiple="true" name="social_media[]" id="selectSocialMedia" class="form-control token-select2 select2">
-                                        <!-- if tags are loaded over AJAX, no need for <option> elments -->
-                                    </select>
+                                            @foreach ($community->social_media['items'] as $item)
+                                            <option value="{{ $item }}" selected>{{ $item }}</option>
+                                            @endforeach
+                                        </select>
                                     @error('social_media')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -173,7 +176,7 @@
                             <div class="card-body p-2">
                                 <label for="gmap_link" class="form-label"><h6>Gmap Link</h6></label>
                                 <div class="d-flex">
-                                    <input type="text" maxlength="50" size="10" class="form-control @error('gmap_link') is-invalid @enderror" id="gmap_link" name="gmap_link"  autofocus value="{{ old('gmap_link') }}" >
+                                    <input type="text" maxlength="50" size="10" class="form-control @error('gmap_link') is-invalid @enderror" id="gmap_link" name="gmap_link"  autofocus value="{{ old('gmap_link', $community->gmap_link) }}" >
                                     @error('gmap_link')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -190,7 +193,7 @@
         </li>
         <li class="mb-1 mt-4 d-grid gap-2">
             <div class="row justify-content-center">
-                <button type="submit" class="col-lg-2 col-md-4 col-sm-6 btn btn-primary">Add Community</button>
+                <button type="submit" class="col-lg-2 col-md-4 col-sm-6 btn btn-primary">Update</button>
             </div>
         </li>
         </ul>
@@ -201,7 +204,9 @@
 <!-- Modal: Table Community Category -->
 <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <form id="formCommunityCategory" method="POST" action="/admin/community-categories" class="mb-5">
+    <form id="formCommunityCategory" method="POST" action="/admin/communities/{{ $community->uuid }}" class="mb-5">
+        @method('put')
+        @csrf
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="categoryModalLabel"><span style="width:25px;height:25px;" data-feather="info"></span> Category

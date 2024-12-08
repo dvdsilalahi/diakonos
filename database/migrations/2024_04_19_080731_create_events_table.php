@@ -14,14 +14,15 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->default("");
-            $table->foreignId('category_id');
-            $table->foreignId('community_id');
+            $table->foreignId('event_category')->references('id')->on('md_event_categories')->onDelete('cascade');;
+            $table->json('communities')->nullable();
             $table->string('title', length:50)->nullable();
             $table->string('flyer', length:50)->nullable();
             $table->date('start_date')->nullable();
             $table->date("end_date")->nullable();
             $table->time('start_time')->nullable();
             $table->time("end_time")->nullable();
+            $table->string('color', length:7)->nullable();
             $table->json('duties_officers')->nullable();
             $table->json('duties_teams')->nullable();
             $table->decimal('budget',9,3)->nullable();

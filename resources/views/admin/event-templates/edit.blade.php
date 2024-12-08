@@ -21,7 +21,9 @@
                             <label for="event_categories" class="form-label"><h6>Event Category</h6></label>
                             <div class="d-flex">
                                 <div class="select-ministry col-md-10">
-                                    @include('master-data.select-event-category')
+                                    <select class="form-select select2" style="width:100%; heigth:100%; display:block;" aria-placeholder="--- Choose Event Category ---" id="selectEventCategory" name="event_category">
+                                        @include('master-data.select-event-category')
+                                    </select>
                                 </div>
                                 <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#eventCategoryModal">
                                     <span style="width:25px;height:25px;" data-feather="info"></span>

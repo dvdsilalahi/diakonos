@@ -1,259 +1,143 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-<div class="container">
-    <div class="row my-3">
-        <div class="col-lg-12">
-            <a type="button" href="{{ url()->previous() }}" class="btn btn-link mb-3" style="text-decoration: none;"><i data-feather="arrow-left" style="width: 20px; height: 20px;"></i>Back</a>
-            <a type="button" href="/dashboard/members/{{ $member->uuid }}/edit"  class="btn btn-link mb-3"><i data-feather="edit" style="width: 20px; height: 20px;"></i></a>
-            <form action="/dashboard/members/{{ $member->uuid }}" method="POST" class="d-inline">
-                @method('delete')
-                @csrf
-                <button class="btn btn-link b-1 mb-3" onclick="return confirm('Are you sure?')">
-                    <i data-feather="x-circle" style="width: 20px; height: 20px;"></i>
-                </button>
-            </form>
-
-        </div>
-        <div class="col-lg-12 d-flex justify-content-center">
-            @if($member->pic)
-                <div style="max-height: 350px; overflow:hidden;">
-                    <img src="{{ asset('/storage/' . $member->pic) }}" width="200" alt="{{ $member->first_name }}" class="img-fluid rounded-circle">
-                </div>
-            @else
-                <div style="max-height: 350px; overflow:hidden;">
-                    <img src="https://source.unsplash.com/random/200x250/?{{ $member->gender }}" width="200" alt="{{ $member->first_name }}" class="img-fluid  rounded-circle">
-                </div>
-            @endif
-        </div>
-        <div class="col-lg-12 d-flex justify-content-center mt-3">
-            <h5>{{ $member->first_name }}
-                @if ($member->last_name)
-                    {{ ' ' . $member->last_name  }}
-                @endif
-            </h5>
-        </div>
-        <div class="col-lg-12 d-flex justify-content-center">
-            {{ $member->profession }}
-        </div>
-        <div class="col-lg-12 d-flex justify-content-center">
-            {{ $member->address }}
-        </div>
-        <div class="col-lg-12 d-flex justify-content-center">
-            <a type="button" href="/dashboard/members/{{ $member->uuid }}/edit"  class="btn btn-link mb-3"><i data-feather="map-pin" style="width: 20px; height: 20px;"></i></a>
-            <a type="button" href="/dashboard/members/{{ $member->uuid }}/edit"  class="btn btn-link mb-3"><i data-feather="instagram" style="width: 20px; height: 20px;"></i></a>
-            <a type="button" href="/dashboard/members/{{ $member->uuid }}/edit"  class="btn btn-link mb-3"><i data-feather="facebook" style="width: 20px; height: 20px;"></i></a>
-            <a type="button" href="/dashboard/members/{{ $member->uuid }}/edit"  class="btn btn-link mb-3"><i data-feather="twitter" style="width: 20px; height: 20px;"></i></a>
-            <a type="button" href="/dashboard/members/{{ $member->uuid }}/edit"  class="btn btn-link mb-3"><i data-feather="linkedin" style="width: 20px; height: 20px;"></i></a>
-        </div>
-        <div class="flex-shrink-0 p-3">
-            <ul class="list-unstyled ps-0">
-            <li class="mb-1 d-grid gap-2">
-                <button type="button" class="col-lg-12 btn btn-secondary rounded-0 border-dark d-inline-flex align-items-center" data-bs-toggle="collapse" data-bs-target="#profile-collapse" aria-expanded="true">
-                Profile
-                </button>
-                <div class="col-lg-12 collapse show" id="profile-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
-                    <li>
-                        <div class="row my-3">
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h6 class="card-title">Email:</h6>
-                                  <p class="card-text">{{ $member->email }}</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-sm-6">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h6 class="card-title">Phone Number:</h6>
-                                  <p class="card-text">{{ $member->phone_number }}</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                    </li>
-                    <li>
-                        <div class="row my-3">
-                            <div class="col-sm-12 mb-2 mb-sm-0">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h6 class="card-title">Address:</h6>
-                                  <p class="card-text">{{ $member->address }}</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                    </li>
-                </ul>
-                </div>
-            </li>
-            <li class="mb-1 d-grid gap-2">
-                <button type="button" class="col-lg-12 btn btn-secondary rounded-0 border-dark d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#personal-collapse" aria-expanded="false">
-                Personal
-                </button>
-                <div class="col-lg-12 collapse" id="personal-collapse" style="">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
-                    <li>
-                        <div class="row my-3">
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h6 class="card-title">National ID No.:</h6>
-                                  <p class="card-text">{{ $member->nin }}</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-sm-6">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h6 class="card-title">Family Register No.:</h6>
-                                  <p class="card-text">{{ $member->fr_no }}</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                    </li>
-                    <li>
-                        <div class="row my-3">
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                <div class="card">
-                                  <div class="card-body">
-                                    <h6 class="card-title">Gender:</h6>
-                                    <p class="card-text">{{ $member->gender }}</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-6">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h6 class="card-title">Citizenship:</h6>
-                                  <p class="card-text">{{ $member->citizenship }}</p>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="row my-3">
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                <div class="card">
-                                  <div class="card-body">
-                                    <h6 class="card-title">Place of Birth:</h6>
-                                    <p class="card-text">{{ $member->place_of_birth }}</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-6">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h6 class="card-title">Date of Birth:</h6>
-                                  <p class="card-text">{{ $member->date_of_birth }}</p>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="row my-3">
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                <div class="card">
-                                  <div class="card-body">
-                                    <h6 class="card-title">Education:</h6>
-                                    <p class="card-text">{{ $member->education }}</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-6">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h6 class="card-title">Profession:</h6>
-                                  <p class="card-text">{{ $member->profession }}</p>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                </div>
-            </li>
-            <li class="mb-1  d-grid gap-2">
-                <button type="button" class="col-lg-12 btn btn-secondary rounded-0 border-dark d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#family-collapse" aria-expanded="false">
-                Family
-                </button>
-                <div class="col-lg-12 collapse" id="family-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
-                    <li>
-                        <div class="row my-3">
-                            <div class="col-sm-12 mb-3 mb-sm-0">
-                                <div class="card">
-                                  <div class="card-body">
-                                    <h6 class="card-title">Family Relation:</h6>
-                                    <p class="card-text">{{ $member->fam_relation }}</p>
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="row my-3">
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                <div class="card">
-                                  <div class="card-body">
-                                    <h6 class="card-title">Father&#39s Name:</h6>
-                                    <p class="card-text">{{ $member->father_name }}</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-sm-6">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h6 class="card-title">Mother&#39s Name:</h6>
-                                  <p class="card-text">{{ $member->mother_name }}</p>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                </div>
-            </li>
-            <li class="mb-1 d-grid gap-2">
-                <button type="button" class="col-lg-12 btn btn-secondary rounded-0 border-dark d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#ministry-collapse" aria-expanded="false">
-                Ministry
-                </button>
-                <div class="collapse" id="ministry-collapse" style="">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
-                    <li>
-                        <span>Not available now</span>
-                    </li>
-                </ul>
-            </li>
-            <li class="mb-1 d-grid gap-2">
-                <button type="button" class="col-lg-12 btn btn-secondary rounded-0 border-dark d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#personality-collapse" aria-expanded="false">
-                Personality
-                </button>
-                <div class="collapse" id="personality-collapse" style="">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
-                    <li>
-                        <span>Not available now</span>
-                    </li>
-                </ul>
-            </li>
-            <li class="mb-1 d-grid gap-2">
-                <button type="button" class="col-lg-12 btn btn-secondary rounded-0 border-dark d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#history-collapse" aria-expanded="false">
-                History
-                </button>
-                <div class="collapse" id="history-collapse" style="">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
-                    <li>
-                        <span>Not available now</span>
-                    </li>
-                </ul>
-            </li>
-            </ul>
-        </div>
+<div class="row my-3">
+    <div class="col-lg-12">
+        <a type="button" href="{{ url()->previous() }}" class="btn btn-link mb-3" style="text-decoration: none;"><i data-feather="arrow-left" style="width: 20px; height: 20px;"></i>Back</a>
+        <h6 class="px-3"> View Community </h6>
+        <h2 class="h2 px-3"> {{ $community->name }} </h2>
     </div>
 </div>
+
+<div class="row my-3">
+    <form method="POST" action="/admin/communities" class="mb-5" enctype="multipart/form-data">
+        @csrf
+
+    <div class="flex-shrink-0 p-3">
+        <ul class="list-unstyled ps-0">
+        <li class="mb-1 d-grid gap-2">
+            <button type="button" class="col-lg-12 btn btn-secondary rounded-0 border-dark d-inline-flex align-items-center" data-bs-toggle="collapse" data-bs-target="#profile-collapse" aria-expanded="true">
+            Profile
+            </button>
+            <div class="col-lg-12 collapse show" id="profile-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+                <li>
+                    <div class="card-group">
+                        <div class="card border-0">
+                            <div class="card-body p-2">
+                                <label for="community-category" class="form-label"><h6>Category</h6></label>
+                                <div class="d-flex">
+                                    <div class="select-community-category col-md-10">
+                                        {{ $community->communityCategory->title }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-0">
+                            <div class="card-body p-2">
+                                <label for="profession" class="form-label"><h6>Segment</h6></label>
+                                <div class="d-flex">
+                                    <div class="select-community-segment col-md-10">
+                                        {{ $community->communitySegment->title }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="card-group">
+                        <div class="card border-0">
+                            <div class="card-body p-2">
+                                <label for="community-area" class="form-label"><h6>Area</h6></label>
+                                <div class="d-flex">
+                                    <div class="select-community-area col-md-10">
+                                        {{ $community->communityArea->title }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-0">
+                            <div class="card-body p-2">
+                              <label for="name" class="form-label"><h6>Community Name</h6></label>
+                              <div class="d-flex">
+                                {{ $community->name }}
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="card-group">
+                        <div class="card border-0">
+                            <div class="card-body p-2">
+                                <label for="leader" class="form-label"><h6>Leaders</h6></label>
+                                <div class="d-flex">
+                                <div class="select-community-leader col-md-10">
+                                    {{ $community->leaders }}
+                                </div>
+                                    @error('leader')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="card-group">
+                        <div class="card border-0">
+                            <div class="card-body p-2">
+                                <label for="description" class="form-label"><h6>Description</h6></label>
+                                <div class="d-flex">
+                                    {{ $community->description }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-0">
+                            <div class="card-body p-2">
+                                <label for="address" class="form-label"><h6>Address</h6></label>
+                                <div class="d-flex">
+                                    {{ $community->address }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="card-group">
+                        <div class="card border-0">
+                            <div class="card-body p-2">
+                                <label for="social_media" class="form-label"><h6>Social Media</h6></label>
+                                <div class="d-flex">
+                                    {{ $community->social_media }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-0">
+                            <div class="card-body p-2">
+                                <label for="gmap_link" class="form-label"><h6>Gmap Link</h6></label>
+                                <div class="d-flex">
+                                    {{ $community->gmap_link }}
+                                </div>
+                                Open Google Map <a href="https://www.google.co.id/maps" target="_blank">here</a>, click the location, on popup that appears click Share, Copy Link, then paste here.
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            </div>
+        </li>
+        <li class="mb-1 mt-4 d-grid gap-2">
+            <div class="row justify-content-center">
+                <a type="button" class="col-lg-2 col-md-4 col-sm-6 btn btn-primary" href="/admin/communities/{{ $community->uuid }}/edit">Edit</a>
+            </div>
+        </li>
+        </ul>
+    </div>
+    </form>
+</div>
 @endsection
+

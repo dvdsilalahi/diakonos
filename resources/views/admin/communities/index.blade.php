@@ -35,10 +35,10 @@ Toggle column visibility: <div id="toggleCommunityColumns"></div>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          'Member "" will be archived/inactivated. Are you sure?'
+          'Community "" will be archived/inactivated. Are you sure?'
         </div>
         <div class="modal-footer">
-            <form action="/dashboard/members/archive/" method="POST" class="d-inline modal-form">
+            <form class="d-inline modal-form" method="POST">
                 @method('post')
                 @csrf
                 <input type="hidden" name="is_active" value="0">
@@ -59,10 +59,10 @@ Toggle column visibility: <div id="toggleCommunityColumns"></div>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          'Member "" will be removed. Are you sure?'
+          'Community "" will be removed. Are you sure?'
         </div>
         <div class="modal-footer">
-            <form action="/dashboard/members" method="POST" class="d-inline modal-form">
+            <form class="d-inline modal-form" method="POST">
                 @method('delete')
                 @csrf
                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
@@ -200,15 +200,12 @@ Toggle column visibility: <div id="toggleCommunityColumns"></div>
                     render: function (data, type, row, meta) {
                         var html = '<a href="/admin/communities/'+row['uuid']+'" class="badge bg-info"><i style="width:10px;height:10px;" data-feather="eye"></i></a> ' +
                         '<a href="/admin/communities/'+row['uuid']+'/edit" class="badge bg-warning"><span style="width:10px;height:10px;" data-feather="edit"></span></a> ' +
-                        '<form action="/admin/communities/'+row['uuid']+'" method="POST" class="d-inline">' +
-                        '    @method("delete") ' +
-                        '    @csrf  '+
-                        '   <button class="badge bg-danger border-0" onclick="return confirm(&#39;Are you sure?&#39;)">' +
-                        '   <span style="width:10px;height:10px;" data-feather="x-circle"></span> ' +
-                        '   </button>' +
-                        '</form>';
-
-
+                        '<button type="button" class="badge bg-dark border-0" data-bs-uuid="'+row['uuid']+'" data-bs-name="'+row['name'] +'" data-bs-toggle="modal" data-bs-target="#archiveModal"> ' +
+                        '    <span style="width:10px;height:10px;" data-feather="archive"></span>' +
+                        '</button> ' +
+                        '<button type="button" class="badge bg-danger border-0" data-bs-uuid="'+row['uuid']+'" data-bs-name="'+row['name'] +'" data-bs-toggle="modal" data-bs-target="#confirmModal">' +
+                        '    <span style="width:10px;height:10px;" data-feather="x-circle"></span>' +
+                        '</button> ';
                         return html;
                     }
                 },
@@ -242,29 +239,30 @@ Toggle column visibility: <div id="toggleCommunityColumns"></div>
     var archiveModal = document.getElementById('archiveModal')
     archiveModal.addEventListener('show.bs.modal', function (event) {
         // Button that triggered the modal
-        var button = event.relatedTarget
+        var button = event.relatedTarget;
+//        console.log(button);
         // Extract info from data-bs-* attributes
-        var member_uuid = button.getAttribute('data-bs-uuid')
-        var member_name = button.getAttribute('data-bs-name')
+        var community_uuid = button.getAttribute('data-bs-uuid');
+        var community_name = button.getAttribute('data-bs-name');
 
-        var modalBody = archiveModal.querySelector('.modal-body')
-        var modalForm = archiveModal.querySelector('.modal-form')
-        modalBody.textContent = 'Member "' + member_name + '" will be archived. Are you sure?';
-        modalForm.action = "/dashboard/members/"+member_uuid+"/archive";
+        var modalBody = archiveModal.querySelector('.modal-body');
+        var modalForm = archiveModal.querySelector('.modal-form');
+        modalBody.textContent = 'Community "' + community_name + '" will be archived. Are you sure?';
+        modalForm.action = "/admin/communities/"+community_uuid+"/archive";
     });
 
     var confirmModal = document.getElementById('confirmModal')
     confirmModal.addEventListener('show.bs.modal', function (event) {
         // Button that triggered the modal
-        var button = event.relatedTarget
+        var button = event.relatedTarget;
         // Extract info from data-bs-* attributes
-        var member_uuid = button.getAttribute('data-bs-uuid')
-        var member_name = button.getAttribute('data-bs-name')
+        var community_uuid = button.getAttribute('data-bs-uuid');
+        var community_name = button.getAttribute('data-bs-name');
 
-        var modalBody = confirmModal.querySelector('.modal-body')
-        var modalForm = confirmModal.querySelector('.modal-form')
-        modalBody.textContent = 'Member "' + member_name + '" will be removed permanently. Are you sure?';
-        modalForm.action = "/dashboard/members/" + member_uuid;
+        var modalBody = confirmModal.querySelector('.modal-body');
+        var modalForm = confirmModal.querySelector('.modal-form');
+        modalBody.textContent = 'Community "' + community_name + '" will be removed permanently. Are you sure?';
+        modalForm.action = "/admin/communities/" + community_uuid;
     });
   </script>
 

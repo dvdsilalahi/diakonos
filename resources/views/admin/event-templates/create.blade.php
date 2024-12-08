@@ -19,8 +19,10 @@
                         <div class="card-body p-2">
                             <label for="event_categories" class="form-label"><h6>Event Category</h6></label>
                             <div class="d-flex">
-                                <div class="select-ministry col-md-10">
-                                    @include('master-data.select-event-category')
+                                <div class="select-event-category col-md-10">
+                                    <select class="form-select select2" style="width:100%; heigth:100%; display:block;" aria-placeholder="--- Choose Event Category ---" id="selectEventCategory" name="event_category">
+                                        @include('master-data.select-event-category')
+                                    </select>
                                 </div>
                                 <button type="button" class="border-0" data-bs-uuid="" data-bs-name="" data-bs-toggle="modal" data-bs-target="#eventCategoryModal">
                                     <span style="width:25px;height:25px;" data-feather="info"></span>
@@ -219,6 +221,7 @@
 </div>
 
 <script>
+
     var count = 0;
     var counter;
     var clickCount = 0;
@@ -488,6 +491,7 @@
 </script>
 
 <script>
+
     $(document).ready(function() {
         var select2elms = document.querySelectorAll('.select2');
         [].forEach.call(select2elms, function(select2elm) {
@@ -515,6 +519,7 @@
             });
         }
     }
+
 </script>
 @endsection
 

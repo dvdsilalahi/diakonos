@@ -14,8 +14,8 @@ class Event extends Model
     // Define the fillable columns (columns that can be mass-assigned)
     protected $fillable = [
         'uuid',
-        'category_id',
-        'community_id',
+        'event_category',
+        'communities',
         'title',
         'flyer',
         'start_date',
@@ -32,6 +32,10 @@ class Event extends Model
         'is_published',
         'is_active',
       ];
+
+    public function eventCategory(){
+        return $this->belongsTo(MdEventCategory::class, 'event_category');
+    }
 
     public function getRouteKeyName(){
         return 'uuid';

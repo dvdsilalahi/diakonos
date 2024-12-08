@@ -91,6 +91,8 @@ Route::get('/admin/member-list', [AdminMemberController::class, 'list']);
 
 Route::resource('/admin/communities', AdminCommunityController::class)->middleware('admin')->middleware('auth');
 
+Route::post('/admin/communities/{community:uuid}/archive', [AdminCommunityController::class, "archive"])->middleware('admin')->middleware('auth');
+
 Route::get('/admin/community-list', [AdminCommunityController::class, 'list']);
 
 Route::resource('/admin/events', AdminEventController::class)->middleware('admin')->middleware('auth');

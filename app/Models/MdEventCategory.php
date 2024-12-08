@@ -24,6 +24,11 @@ class MdEventCategory extends Model
      }
 
     public function eventTemplate(){
-        $this->hasMany(MdEventTemplate::class);
+        $this->hasOne(MdEventTemplate::class);
     }
+
+    public function event(){
+        $this->hasMany(Event::class);
+    }
+
 }

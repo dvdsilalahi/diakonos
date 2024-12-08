@@ -24,4 +24,8 @@ class MdCommunityCategory extends Model
         return 'uuid';
      }
 
+     public function communityCategory(){
+        $this->hasMany(Community::class);
+    }
+
 }

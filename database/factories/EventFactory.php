@@ -18,9 +18,9 @@ class EventFactory extends Factory
     {
         return [
             'uuid' => $this->faker->unique()->sha1(),
-            'title' => $this->faker->randomElement(['Ibadah Umum', 'Sekolah Minggu', 'Retreat']),
-            'category_id' => $this->faker->randomElement([1]),
-            'community_id' => $this->faker->randomElement([1]),
+            'title' => $this->faker->randomElement(['Retreat']),
+            'event_category' => $this->faker->randomElement([1]),
+            'communities' => $this->faker->randomElement([json_encode(['items' => [1]]),]),
             'start_date' => $this->faker->date(),
             'duties_officers' => $this->faker->randomElement([json_encode(['wl' => ['Davidy Silalahi']]),json_encode(['singers' => ['Josephine Dame', 'Noah Marchiano']])]),
         ];
