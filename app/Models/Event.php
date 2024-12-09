@@ -22,6 +22,7 @@ class Event extends Model
         'end_date',
         'start_time',
         'end_time',
+        'facility',
         'duties_officers',
         'duties_teams',
         'budget',

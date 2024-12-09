@@ -245,8 +245,8 @@
         headerToolbar: {
             start: 'eventAddButton prev,next,today',
             center: 'title',
-//            end: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek resourceTimeGridWeek,resourceTimelineWeek'
-            end: 'dayGridMonth,timeGridWeek,listWeek,resourceTimelineWeek'
+            end: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek,resourceTimeGridWeek,resourceTimelineWeek'
+//            end: 'dayGridMonth,timeGridWeek,listWeek,resourceTimelineWeek'
         },
         events: createEvents(),
         selectable: true,

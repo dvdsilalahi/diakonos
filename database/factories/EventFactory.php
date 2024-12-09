@@ -21,7 +21,9 @@ class EventFactory extends Factory
             'title' => $this->faker->randomElement(['Retreat']),
             'event_category' => $this->faker->randomElement([1]),
             'communities' => $this->faker->randomElement([json_encode(['items' => [1]]),]),
-            'start_date' => $this->faker->date(),
+            'start_date' => date("Y-m-d"),
+            'end_date' => date("Y-m-d"),
+            'facility' => $this->faker->randomElement([1]),
             'duties_officers' => $this->faker->randomElement([json_encode(['wl' => ['Davidy Silalahi']]),json_encode(['singers' => ['Josephine Dame', 'Noah Marchiano']])]),
         ];
     }

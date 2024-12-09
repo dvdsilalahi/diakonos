@@ -46,9 +46,8 @@ class AdminEventController extends Controller
     {
        $validatedData = $request->validate([
             "title" => "required",
-            "start_date" => "required|date",
+            "date" => "required|date",
             "start_time" => "required",
-            "end_date" => "required|date",
             "end_time" => "required",
             "event_category" => "required",
             "communities" => "required",
@@ -119,7 +118,8 @@ class AdminEventController extends Controller
 
         }
 
-        dd($data);
+//        dd($data);
+        return $data;
 
     }
 }

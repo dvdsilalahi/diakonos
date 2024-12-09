@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\MdCOA;
 use App\Models\MdEventDuty;
+use App\Models\MdEventFacility;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Event;
@@ -105,6 +106,8 @@ class DatabaseSeeder extends Seeder
         MdCommunityArea::factory(3)->create();
 
         MdEventCategory::factory(2)->create();
+
+        MdEventFacility::factory(1)->create();
 
         MdEventTemplate::factory(2)->create();
 
