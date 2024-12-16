@@ -18,7 +18,7 @@ class MdEventFacilityFactory extends Factory
     {
         return [
             'uuid' => $this->faker->unique()->sha1(),
-            'name' => strtoupper($this->faker->unique()->randomElement(['Ruang Utama', 'Ruang Rapat', 'Ruang Sekolah Minggu'])),
+            'title' => strtoupper($this->faker->unique()->randomElement(['Ruang Utama', 'Ruang Rapat', 'Ruang Sekolah Minggu'])),
         ];
     }
 }

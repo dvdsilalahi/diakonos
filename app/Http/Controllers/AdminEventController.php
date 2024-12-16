@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Community;
 use App\Models\Event;
 use App\Models\MdEventCategory;
+use App\Models\MdEventFacility;
 use App\Models\MdEventTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
@@ -26,6 +27,7 @@ class AdminEventController extends Controller
         return view('admin.events.index',[
             'events' => Event::all(),
             'eventcategories' => MdEventCategory::all(),
+            'eventfacilities' => MdEventFacility::all(),
             'eventcommunities' => Community::all(),
         ]);
 
@@ -44,6 +46,7 @@ class AdminEventController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
        $validatedData = $request->validate([
             "title" => "required",
             "date" => "required|date",

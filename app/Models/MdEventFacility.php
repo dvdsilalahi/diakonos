@@ -15,7 +15,7 @@ class MdEventFacility extends Model
 
     protected $fillable = [
         'uuid',
-        'name',
+        'title',
         'description',
     ];
 

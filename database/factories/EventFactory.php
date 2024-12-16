@@ -24,6 +24,8 @@ class EventFactory extends Factory
             'start_date' => date("Y-m-d"),
             'end_date' => date("Y-m-d"),
             'facility' => $this->faker->randomElement([1]),
+            'venue' => $this->faker->randomElement(['GKI Buaran', 'GPIB Menara Iman']),
+            'budget' => $this->faker->randomElement(['1000000', '2000000']),
             'duties_officers' => $this->faker->randomElement([json_encode(['wl' => ['Davidy Silalahi']]),json_encode(['singers' => ['Josephine Dame', 'Noah Marchiano']])]),
         ];
     }

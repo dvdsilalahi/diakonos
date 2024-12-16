@@ -55,9 +55,9 @@ class AdminEventTemplateController extends Controller
         $request->validate([
             'event_category' => 'required',
             'minister_duties' => 'required',
-            'community_duties' => 'required',
             'segment_attendances' => 'required',
             'offering_accounts' => 'required',
+            'public_visibility' => 'required',
         ]);
 
         $validatedData['event_category'] = $request->event_category;
@@ -65,6 +65,7 @@ class AdminEventTemplateController extends Controller
         $validatedData['community_duties'] = json_encode(array('items' => $request->community_duties));
         $validatedData['segment_attendances'] = json_encode(array('items' => $request->segment_attendances));
         $validatedData['offering_accounts'] = json_encode(array('items' => $request->offering_accounts));
+        $validatedData['public_visibility'] = $request->public_visibility;
 //dd($validatedData);
         $data = MdEventTemplate::create($validatedData);
         $validatedData['uuid'] = sha1($data->id);
@@ -123,9 +124,9 @@ class AdminEventTemplateController extends Controller
         $rules = [
             'event_category' => 'required',
             'minister_duties' => 'required',
-            'community_duties' => 'required',
             'segment_attendances' => 'required',
             'offering_accounts' => 'required',
+            'public_visibility' => 'required',
         ];
 
         $validatedData = $request->validate($rules);
@@ -135,6 +136,7 @@ class AdminEventTemplateController extends Controller
         $validatedData['community_duties'] = json_encode(array('items' => $request->community_duties));
         $validatedData['segment_attendances'] = json_encode(array('items' => $request->segment_attendances));
         $validatedData['offering_accounts'] = json_encode(array('items' => $request->offering_accounts));
+        $validatedData['public_visibility'] = $request->public_visibility;
 
         MdEventTemplate::where('uuid', $id)->update($validatedData);
         return redirect()->route('event-templates.index')
@@ -169,11 +171,16 @@ class AdminEventTemplateController extends Controller
             $data[$i]['minister_duties'] = rtrim($minister_duties_att, ',');
 
             $community_duties = json_decode(json_decode($data[$i])->community_duties)->items;
-            $community_duties_att ="";
-            for($j=0;$j<count($community_duties);$j++){
-                $community_duties_att .= MdEventDuty::where('id',$community_duties[$j])->first()->title . ",";
+
+            if(isset($community_duties)){
+                $community_duties_att ="";
+                for($j=0;$j<count($community_duties);$j++){
+                    $community_duties_att .= MdEventDuty::where('id',$community_duties[$j])->first()->title . ",";
+                }
+                $data[$i]['community_duties'] = rtrim($community_duties_att, ',');
+            } else {
+                $data[$i]['community_duties'] = "N/A";
             }
-            $data[$i]['community_duties'] = rtrim($community_duties_att, ',');
 
             $segment_attendances = json_decode(json_decode($data[$i])->segment_attendances)->items;
             $str_segment_att ="";

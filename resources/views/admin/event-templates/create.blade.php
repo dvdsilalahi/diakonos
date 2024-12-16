@@ -122,6 +122,36 @@
                     </div>
                 </div>
             </li>
+            <li>
+                <div class="card-group">
+                    <div class="card border-0">
+                        <div class="card-body p-2">
+                            <label for="offering_accounts" class="form-label"><h6>Visibility</h6></label>
+                            <div class="d-flex">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="public_visibility" value='1' id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Public
+                                    </label>
+                                  </div>
+                            </div>
+                            <div class="d-flex">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="public_visibility" value='0' id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Community Only
+                                    </label>
+                                  </div>
+                            </div>
+                            @error('offering_accounts')
+                            <div class="invalid-feedback d-block" role="alert">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+            </li>
             <li class="mb-1 mt-4 d-grid gap-2">
                 <div class="row justify-content-center">
                     <button type="submit" class="col-lg-2 col-md-4 col-sm-6 btn btn-primary">Add Template</button>

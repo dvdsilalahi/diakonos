@@ -23,6 +23,7 @@ class MdEventTemplateFactory extends Factory
             'community_duties' => $this->faker->randomElement([json_encode(['items' => [2, 2]]),json_encode(['items' => [1, 2]]),]),
             'segment_attendances' => $this->faker->randomElement([json_encode(['items' => [1, 2]]),json_encode(['items' => [1, 2]]),]),
             'offering_accounts' => $this->faker->randomElement([json_encode(['items' => [2, 2]]),json_encode(['items' => [1, 2]]),]),
+            'public_visibility' => 1,
         ];
     }
 }

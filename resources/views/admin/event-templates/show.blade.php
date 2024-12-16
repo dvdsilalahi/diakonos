@@ -133,6 +133,27 @@
                     </div>
                 </div>
             </li>
+            <li>
+                <div class="card-group">
+                    <div class="card border-0">
+                        <div class="card-body p-2">
+                            <label for="visibility" class="form-label"><h6>Visibility</h6></label>
+                            <div class="d-flex">
+                                <div class="event-visibility col-md-10">
+                                    @if($eventTemplate['public_visibility'] == 1)
+                                        Public
+                                    @else
+                                        Community Only
+                                    @endif
+                            @error('offering_accounts')
+                            <div class="invalid-feedback d-block" role="alert">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+            </li>
         </ul>
     </div>
 </div>

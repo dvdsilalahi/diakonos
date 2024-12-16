@@ -19,6 +19,7 @@ return new class extends Migration
             $table->json('community_duties')->nullable();
             $table->json('segment_attendances')->nullable();
             $table->json('offering_accounts')->nullable();
+            $table->boolean('public_visibility')->nullable();
             $table->timestamps();
         });
     }

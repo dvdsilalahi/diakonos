@@ -16,6 +16,7 @@ class MdEventTemplate extends Model
         'community_duties',
         'segment_attendances',
         'offering_accounts',
+        'public_visibility',
     ];
 
     public function eventCategory(){

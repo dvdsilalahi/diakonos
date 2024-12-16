@@ -23,10 +23,11 @@ return new class extends Migration
             $table->time('start_time')->nullable();
             $table->time("end_time")->nullable();
             $table->foreignId('facility')->references('id')->on('md_event_facilities')->onDelete('cascade');
+            $table->string('venue', length:255)->nullable();
+            $table->decimal('budget',9,3)->nullable();
             $table->string('color', length:7)->nullable();
             $table->json('duties_officers')->nullable();
             $table->json('duties_teams')->nullable();
-            $table->decimal('budget',9,3)->nullable();
             $table->decimal('offerings',9,3)->nullable();
             $table->json('attendees')->nullable();
             $table->json('attendee_names')->nullable();

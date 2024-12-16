@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminEventTemplateController;
+use App\Http\Controllers\MdEventFacilityController;
 use App\Models\Category;
 use App\Models\MdCitizenship;
 use Illuminate\Support\Facades\Auth;
@@ -228,6 +229,12 @@ Route::get('/admin/select-community-duties',[MdEventDutyController::class, 'sele
 Route::resource('/admin/event-templates', AdminEventTemplateController::class)->middleware('admin');
 
 Route::get('/admin/event-template-list', [AdminEventTemplateController::class, 'list']);
+
+Route::post('/admin/event-facilities',[MdEventFacilityController::class, 'store']);
+
+Route::get('/admin/table-event-facilities',[MdEventFacilityController::class, 'table']);
+
+Route::get('/admin/select-event-facilities',[MdEventFacilityController::class, 'select']);
 
 /*,
 Route::get('/categories/{category:slug}', function(Category $category) {
